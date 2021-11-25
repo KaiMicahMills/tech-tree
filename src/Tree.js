@@ -13,6 +13,9 @@ const Tree = () => {
           <h4>
             <a href="https://fsnone-bb4c.kxcdn.com/wp-content/uploads/2021/10/Longevity-Technology.pdf" target="_blank" rel="noreferrer">View the full document</a>
           </h4>
+          <h4>
+            <a href="https://app.markup.io/markup/d501ce5d-37aa-4399-bc44-be0b85733023" target="_blank" rel="noreferrer">Provide feedback</a>
+          </h4>
         </div>
         <div className="header-block">
           <h4>Key:</h4>
@@ -34,9 +37,6 @@ const Tree = () => {
       <div className="sections">
         <section className="reprogramming">
           <h2>Reprogramming</h2>
-          <div className="nodes">
-            <div className="node nutrition">K/P/Na/Ca</div>
-          </div>
         </section>
         <section className="organic-replacement">
           <h2>Organic Replacement</h2>
