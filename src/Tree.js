@@ -581,6 +581,7 @@ const Tree = () => {
                */
               const startingPoints = [];
               if (node.relations && node.relations.length) {
+                let pushed = false;
                 locRef.forEach((n) => {
                   /**
                    * Find the top position of the backwards relation and match it
@@ -594,7 +595,10 @@ const Tree = () => {
                      */
                     if (n.top === t) {
                       t = t + pixelDiff;
-                      if (n.left === l) starterCount = starterCount + 1;
+                      if (n.left === l && !pushed) {
+                        starterCount = starterCount + 1;
+                        pushed = true;
+                      }
                     }
                   }
                   /**
@@ -652,7 +656,7 @@ const Tree = () => {
                              */
                             let strokeOpacity = 1;
                             if (Math.abs(position.top) - Math.abs(point.top) > 400) {
-                              strokeOpacity = 0.2;
+                              strokeOpacity = 0.25;
                             }
                             /**
                              * Render node connections
