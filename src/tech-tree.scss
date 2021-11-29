@@ -135,6 +135,13 @@ a {
   }
 }
 
+.sections {
+  position: relative;
+  border-top: 2px solid #FFF;
+  background-color: #1D233C;
+  overflow-x: auto;
+}
+
 section {
   min-height: 400px;
   width: 100%;
@@ -179,17 +186,71 @@ section {
  */
 
 .nodes {
+  position: relative;
+  top: 0;
+  left: 75px;
+  padding-bottom: 65px;
 
   .node {
+    text-align: center;
     display: inline-block;
     padding: 5px 15px;
     border: 2px solid $tree-border-color;
     color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    white-space: nowrap;
+    transition: 0.2s;
+    z-index: 1;
+
+    @keyframes iShow {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    i {
+      position: absolute;
+      left: -10px;
+      font-size: 26px;
+      color: #FFF;
+      top: 50%;
+      margin-top: -1px;
+      transform: translateY(-50%);
+      animation: iShow 0.5s forwards;
+      animation-delay: 3.3s;
+      opacity: 0;
+    }
+
+    &.core-technology {
+      background-color: $tree-key-blue;
+    }
+
+    &.longevity-tech {
+      background-color: $tree-key-purple;
+    }
+
+    &.general-improvement {
+      background-color: $tree-key-yellow;
+    }
 
     &.nutrition-inputs {
       background-color: $tree-key-green;
     }
+
+    &:hover {
+      cursor: pointer;
+      filter: brightness(105%);
+    }
   }
+}
+
+svg {
+  position: absolute;
+  pointer-events: none;
+  overflow: visible;
 }
 
 /**
@@ -207,6 +268,7 @@ section {
   font-size: 14px;
   border-top: 2px solid $tree-border-color;
   border-bottom: 2px solid $tree-border-color;
+  clear: both;
 
   p {
     padding: 0 15px;
