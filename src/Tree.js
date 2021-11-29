@@ -573,7 +573,7 @@ const Tree = () => {
                * Default positioning
                * @type {number}
                */
-              const fontWidth = 9;
+              const fontWidth = 10;
               let t = pixelDiff * multiplier;
               let l = pixelDiff * multiplier;
               /**
