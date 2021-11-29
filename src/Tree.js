@@ -469,7 +469,7 @@ const Tree = () => {
     {
       title: 'Macular Degeneration Reversal',
       type: 'general-improvement',
-      relations: ['Lipfuscin Degradation']
+      relations: ['Lipofuscin Degradation']
     },
     {
       title: 'Sarcopenia Cure',
@@ -573,7 +573,7 @@ const Tree = () => {
                * Default positioning
                * @type {number}
                */
-              const fontWidth = 11;
+              const fontWidth = 9;
               let t = pixelDiff * multiplier;
               let l = pixelDiff * multiplier;
               /**
