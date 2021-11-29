@@ -137,6 +137,9 @@ a {
 
 .sections {
   position: relative;
+  border-top: 2px solid #FFF;
+  background-color: #1D233C;
+  overflow-x: auto;
 }
 
 section {
@@ -183,9 +186,10 @@ section {
  */
 
 .nodes {
-  position: absolute;
+  position: relative;
   top: 0;
-  left: 20px;
+  left: 75px;
+  padding-bottom: 65px;
 
   .node {
     text-align: center;
@@ -196,6 +200,29 @@ section {
     position: absolute;
     white-space: nowrap;
     transition: 0.2s;
+    z-index: 1;
+
+    @keyframes iShow {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    i {
+      position: absolute;
+      left: -10px;
+      font-size: 26px;
+      color: #FFF;
+      top: 50%;
+      margin-top: -1px;
+      transform: translateY(-50%);
+      animation: iShow 0.5s forwards;
+      animation-delay: 3.3s;
+      opacity: 0;
+    }
 
     &.core-technology {
       background-color: $tree-key-blue;
@@ -222,9 +249,8 @@ section {
 
 svg {
   position: absolute;
-  z-index: 2;
   pointer-events: none;
-  display: none;
+  overflow: visible;
 }
 
 /**
@@ -242,6 +268,7 @@ svg {
   font-size: 14px;
   border-top: 2px solid $tree-border-color;
   border-bottom: 2px solid $tree-border-color;
+  clear: both;
 
   p {
     padding: 0 15px;

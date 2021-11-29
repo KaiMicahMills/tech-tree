@@ -15,10 +15,6 @@ const Tree = () => {
    */
   const tempData = [
     {
-      title: 'K/P/Na/Ca',
-      type: 'nutrition-inputs',
-    },
-    {
       title: 'Electrodynamics',
       type: 'core-technology',
     },
@@ -56,21 +52,6 @@ const Tree = () => {
       relations: ['Yamanaka Factors'],
     },
     {
-      title: 'Senescence Control',
-      type: 'core-technology',
-      relations: ['Dedifferentiation', 'Senolytics'],
-    },
-    {
-      title: 'Cure for Cancer',
-      type: 'general-improvement',
-      relations: ['Senescence Control', 'Telomere Control', 'Gene Repair Control', 'Gene Replacement Therapy'],
-    },
-    {
-      title: 'Regeneration of Senescent Cells',
-      type: 'longevity-tech',
-      relations: ['Senescence Control'],
-    },
-    {
       title: 'Senolytics',
       type: 'core-technology',
     },
@@ -84,6 +65,432 @@ const Tree = () => {
     },
     {
       title: 'Gene Replacement Therapy',
+      type: 'core-technology',
+    },
+    {
+      title: 'Senescence Control',
+      type: 'core-technology',
+      relations: ['Dedifferentiation', 'Senolytics'],
+    },
+    {
+      title: 'Regeneration of Senescent Cells',
+      type: 'longevity-tech',
+      relations: ['Senescence Control'],
+    },
+    {
+      title: 'Cure for Cancer',
+      type: 'general-improvement',
+      relations: ['Senescence Control', 'Telomere Control', 'Gene Repair Control', 'Gene Replacement Therapy'],
+    },
+    {
+      title: 'Molecule Replacement',
+      type: 'core-technology',
+    },
+    {
+      title: 'Hormone Replacement',
+      type: 'core-technology',
+      relations: ['Molecule Replacement'],
+    },
+    {
+      title: 'Klotho',
+      type: 'core-technology',
+      relations: ['Hormone Replacement'],
+    },
+    {
+      title: 'General Regeneration?',
+      type: 'longevity-tech',
+      relations: ['Klotho'],
+    },
+    {
+      title: 'Testosterone',
+      type: 'core-technology',
+      relations: ['Hormone Replacement', 'Circadian Rhythm Control'],
+    },
+    {
+      title: 'Estrogens',
+      type: 'core-technology',
+      relations: ['Hormone Replacement'],
+    },
+    {
+      title: 'Menopause Therapy',
+      type: 'general-improvement',
+      relations: ['Estrogens'],
+    },
+    {
+      title: 'Human Growth Hormone',
+      type: 'core-technology',
+      relations: ['Hormone Replacement'],
+    },
+    {
+      title: 'Thymus Regeneration',
+      type: 'core-technology',
+      relations: ['Human Growth Hormone'],
+    },
+    {
+      title: 'Immune System Regeneration',
+      type: 'longevity-tech',
+      relations: ['Thymus Regeneration'],
+    },
+    {
+      title: 'Cell Replacement',
+      type: 'core-technology',
+      relations: ['Molecule Replacement'],
+    },
+    {
+      title: 'Microbiome Control',
+      type: 'core-technology',
+      relations: ['Cell Replacement'],
+    },
+    {
+      title: 'Gut Disorder Cures',
+      type: 'general-improvement',
+      relations: ['Microbiome Control'],
+    },
+    {
+      title: 'Stem Cell Therapy',
+      type: 'core-technology',
+      relations: ['Cell Replacement'],
+    },
+    {
+      title: 'Diabetes Cure',
+      type: 'general-improvement',
+      relations: ['Stem Cell Therapy'],
+    },
+    {
+      title: 'Cartilage Regeneration',
+      type: 'general-improvement',
+      relations: ['Stem Cell Therapy'],
+    },
+    {
+      title: 'Platelet Rich Plasma',
+      type: 'core-technology',
+      relations: ['Cell Replacement'],
+    },
+    {
+      title: 'Menopause Reversal',
+      type: 'longevity-tech',
+      relations: ['Platelet Rich Plasma'],
+    },
+    {
+      title: 'Lab Grown Blood',
+      type: 'core-technology',
+      relations: ['Cell Replacement'],
+    },
+    {
+      title: 'Blood Donations Solved',
+      type: 'general-improvement',
+      relations: ['Lab Grown Blood'],
+    },
+    {
+      title: 'Tissue Replacement',
+      type: 'core-technology',
+      relations: ['Cell Replacement'],
+    },
+    {
+      title: 'Extracellular Matrix Reconstruction',
+      type: 'core-technology',
+      relations: ['Tissue Replacement'],
+    },
+    {
+      title: 'Pneumonia Cure',
+      type: 'general-improvement',
+      relations: ['Extracellular Matrix Reconstruction'],
+    },
+    {
+      title: 'Skin Renewal',
+      type: 'general-improvement',
+      relations: ['Extracellular Matrix Reconstruction'],
+    },
+    {
+      title: 'Brain Replacement',
+      type: 'core-technology',
+      relations: ['Tissue Replacement'],
+    },
+    {
+      title: 'Stroke Cure',
+      type: 'general-improvement',
+      relations: ['Brain Replacement'],
+    },
+    {
+      title: 'Dementia Cure',
+      type: 'general-improvement',
+      relations: ['Brain Replacement'],
+    },
+    {
+      title: 'Body on a Chip',
+      type: 'core-technology',
+      relations: ['Tissue Replacement'],
+    },
+    {
+      title: 'Drug development',
+      type: 'general-improvement',
+      relations: ['Body on a chip'],
+    },
+    {
+      title: '3d Bioprinting',
+      type: 'core-technology',
+    },
+    {
+      title: 'Organ Scaffolds',
+      type: 'core-technology',
+    },
+    {
+      title: 'Head Transplant',
+      type: 'core-technology',
+    },
+    {
+      title: 'Brain Transplant',
+      type: 'core-technology',
+    },
+    {
+      title: 'Organ Replacement',
+      type: 'core-technology',
+      relations: ['Tissue Replacement', '3d Bioprinting', 'Organ Scaffolds'],
+    },
+    {
+      title: 'Organ Transplant Waitlist Solved',
+      type: 'general-improvement',
+      relations: ['Organ Replacement'],
+    },
+    {
+      title: 'Body Replacement',
+      type: 'longevity-tech',
+      relations: ['Organ Replacement', 'Head Transplant', 'Brain Transplant'],
+    },
+    {
+      title: 'Frozen Cells',
+      type: 'core-technology',
+    },
+    {
+      title: 'Frozen Stem Cells',
+      type: 'core-technology',
+      relations: ['Frozen Cells', 'Stem Cell Therapy']
+    },
+    {
+      title: 'Frozen Blood',
+      type: 'core-technology',
+      relations: ['Frozen Cells']
+    },
+    {
+      title: 'Blood Storage',
+      type: 'core-technology',
+      relations: ['Frozen Blood']
+    },
+    {
+      title: 'Blood Donations Solved',
+      type: 'general-improvement',
+      relations: ['Blood Storage', 'Lab Grown Blood']
+    },
+    {
+      title: 'Parabiosis / Blood Dilution',
+      type: 'longevity-tech',
+      relations: ['Blood Storage']
+    },
+    {
+      title: 'Frozen Tissue',
+      type: 'core-technology',
+      relations: ['Frozen Cells']
+    },
+    {
+      title: 'Surgical Improvements',
+      type: 'general-improvement',
+      relations: ['Frozen Tissue']
+    },
+    {
+      title: 'Vitrified Organs',
+      type: 'core-technology',
+      relations: ['Frozen Tissue']
+    },
+    {
+      title: 'Organ Storage',
+      type: 'core-technology',
+      relations: ['Vitrified Organs', 'Organ Transplant Waitlist Solved']
+    },
+    {
+      title: 'Vitrified Body',
+      type: 'core-technology',
+      relations: ['Vitrified Organs']
+    },
+    {
+      title: 'Long Distance Space Travel',
+      type: 'general-improvement',
+      relations: ['Vitrified Body']
+    },
+    {
+      title: 'Cryonic Revival',
+      type: 'longevity-tech',
+      relations: ['Vitrified Body']
+    },
+    {
+      title: 'Brain Preservation',
+      type: 'core-technology',
+      relations: ['Vitrified Organs', 'Brain Transplant']
+    },
+    {
+      title: 'Brain Machine Interface',
+      type: 'core-technology',
+    },
+    {
+      title: 'Mind Uploading',
+      type: 'core-technology',
+      relations: ['Brain Machine Interface', 'Brain Preservation']
+    },
+    {
+      title: 'Cybernetic Brain',
+      type: 'core-technology',
+      relations: ['Mind Uploading']
+    },
+    {
+      title: 'Artificial Muscle',
+      type: 'core-technology',
+    },
+    {
+      title: 'Lifelike Prosthetics',
+      type: 'general-improvement',
+      relations: ['Brain Machine Interface', 'Artificial Muscle']
+    },
+    {
+      title: 'ATP to Electricity',
+      type: 'core-technology',
+    },
+    {
+      title: 'Artificial Organs',
+      type: 'core-technology',
+      relations: ['ATP to Electricity']
+    },
+    {
+      title: 'Cure Heart Disease',
+      type: 'general-improvement',
+      relations: ['Artificial Organs']
+    },
+    {
+      title: 'Cure Kidney Failure',
+      type: 'general-improvement',
+      relations: ['Artificial Organs']
+    },
+    {
+      title: 'Electricity to ATP',
+      type: 'general-improvement',
+      relations: ['ATP to Electricity']
+    },
+    {
+      title: 'Cybernetic Body',
+      type: 'core-technology',
+      relations: ['Artificial Organs', 'Artificial Muscle']
+    },
+    {
+      title: 'Cyborg',
+      type: 'longevity-tech',
+      relations: ['Cybernetic Body', 'Electricity to ATP']
+    },
+    {
+      title: 'Android',
+      type: 'longevity-tech',
+      relations: ['Cyborg', 'Cybernetic Brain']
+    },
+    {
+      title: 'Food From Energy',
+      type: 'general-improvement',
+      relations: ['Electricity to ATP']
+    },
+    {
+      title: 'Heat Shock Response Control',
+      type: 'core-technology',
+    },
+    {
+      title: 'Refolding Proteins',
+      type: 'core-technology',
+      relations: ['Heat Shock Response Control']
+    },
+    {
+      title: 'Proteolysis Control',
+      type: 'core-technology',
+    },
+    {
+      title: 'PROTACS',
+      type: 'core-technology',
+    },
+    {
+      title: 'Recycling Individual Proteins',
+      type: 'core-technology',
+      relations: ['Refolding Proteins', 'Proteolysis Control', 'PROTACS']
+    },
+    {
+      title: 'Measure Autophagy in Vivo',
+      type: 'core-technology',
+    },
+    {
+      title: 'Caloric Restriction',
+      type: 'core-technology',
+    },
+    {
+      title: 'mTOR/AMPk',
+      type: 'core-technology',
+    },
+    {
+      title: 'Autophagy Control',
+      type: 'core-technology',
+      relations: ['Measure Autophagy in Vivo', 'Caloric Restriction', 'mTOR/AMPk']
+    },
+    {
+      title: 'Recycling Many Proteins',
+      type: 'core-technology',
+      relations: ['Recycling Individual Proteins', 'Autophagy Control']
+    },
+    {
+      title: 'Extracellular Matrix Turnover',
+      type: 'core-technology',
+      relations: ['Recycling Many Proteins', 'Tissue Replacement']
+    },
+    {
+      title: 'Glymphatic System Control',
+      type: 'core-technology',
+    },
+    {
+      title: 'Complete Detritus Removal',
+      type: 'longevity-tech',
+      relations: ['Glymphatic System Control', 'Recycling Many Proteins']
+    },
+    {
+      title: 'Removal of Eye Floaters',
+      type: 'general-improvement',
+      relations: ['Recycling Many Proteins']
+    },
+    {
+      title: 'Alzheimers Cure',
+      type: 'general-improvement',
+      relations: ['Recycling Many Proteins']
+    },
+    {
+      title: 'Lipofuscin Degradation',
+      type: 'core-technology',
+      relations: ['Recycling Many Proteins']
+    },
+    {
+      title: 'Macular Degeneration Reversal',
+      type: 'general-improvement',
+      relations: ['Lipfuscin Degradation']
+    },
+    {
+      title: 'Sarcopenia Cure',
+      type: 'general-improvement',
+      relations: ['Recycling Many Proteins']
+    },
+    {
+      title: 'Muscular Dystrophy Cure',
+      type: 'general-improvement',
+      relations: ['Recycling Many Proteins']
+    },
+    {
+      title: 'Reactive Oxygen Species',
+      type: 'core-technology',
+    },
+    {
+      title: 'Oxidated Lipids',
+      type: 'core-technology',
+    },
+    {
+      title: 'Advanced Glycation Endproduct Removal',
       type: 'core-technology',
     },
   ];
@@ -100,6 +507,12 @@ const Tree = () => {
    * @type {number}
    */
   let starterCount = 0;
+
+  /**
+   * Size of node + desired spacing
+   * @type {number}
+   */
+  const pixelDiff = 65;
 
   return (
     <div className="tree">
@@ -140,27 +553,9 @@ const Tree = () => {
           <div className="key yellow">
             General Improvement
           </div>
-          <div className="key green">
-            Nutrition Inputs
-          </div>
         </div>
       </div>
       <div className="sections">
-        <section className="reprogramming">
-          <h2>Reprogramming</h2>
-        </section>
-        <section className="organic-replacement">
-          <h2>Organic Replacement</h2>
-        </section>
-        <section className="slowing-time">
-          <h2>Slowing Time</h2>
-        </section>
-        <section className="synthetic-replacement">
-          <h2>Synthetic Replacement</h2>
-        </section>
-        <section className="damage-control">
-          <h2>Damage Control</h2>
-        </section>
         <div className="nodes">
           {
             tempData.map((node, index) => {
@@ -178,8 +573,7 @@ const Tree = () => {
                * Default positioning
                * @type {number}
                */
-              const pixelDiff = 65;
-              const fontWidth = 8;
+              const fontWidth = 11;
               let t = pixelDiff * multiplier;
               let l = pixelDiff * multiplier;
               /**
@@ -188,24 +582,21 @@ const Tree = () => {
               const startingPoints = [];
               if (node.relations && node.relations.length) {
                 locRef.forEach((n) => {
+                  /**
+                   * Find the top position of the backwards relation and match it
+                   */
                   if (n.id === node.relations[0].replace(/\s/g, '-').toLowerCase()) {
-                    /**
-                     * Find the top position of the backwards relation and match it
-                     */
                     t = n.top;
                     l = n.left + ((n.id.length * fontWidth) + pixelDiff);
-                  }
-
-                  if (n.id !== node.relations[0].replace(/\s/g, '-').toLowerCase()) {
+                  } else {
                     /**
                      * Check if a node is already in this position
                      */
-                    if (n.top === t && n.left === l) {
+                    if (n.top === t) {
                       t = t + pixelDiff;
-                      starterCount = starterCount + 1;
+                      if (n.left === l) starterCount = starterCount + 1;
                     }
                   }
-
                   /**
                    * Save relation starting points to draw lines later
                    */
@@ -229,7 +620,6 @@ const Tree = () => {
               }
               /**
                * Position styling
-               * @type {{top: number, left: number}}
                */
               const position = {
                 top: t,
@@ -250,22 +640,40 @@ const Tree = () => {
                * Render the node
                */
               return (
-                <>
+                <div key={index}>
                   {
                     startingPoints.length ? (
                       <>
                         {
                           startingPoints.map((point) => {
-
-                            const polylineLeft = position.left - (point.id.length * fontWidth);
-
+                            /**
+                             * Lower the opacity for *very* long node connections
+                             * @type {number}
+                             */
+                            let strokeOpacity = 1;
+                            if (Math.abs(position.top) - Math.abs(point.top) > 400) {
+                              strokeOpacity = 0.2;
+                            }
+                            /**
+                             * Render node connections
+                             */
                             return (
-                              <svg style={{
-                                top: position.top + 16, // center vertically
-                                left: position.left - 50,
-                              }}>
-                                <polyline points={`0,0 ${polylineLeft},0`}
-                                          fill="none" stroke="white" strokeWidth="4" />
+                              <svg key={point.id}>
+                                <line x1={point.left} y1={point.top + 16} x2={position.left - 15} y2={point.top + 16} strokeWidth="2" stroke="transparent" strokeOpacity={strokeOpacity}>
+                                  <animate attributeName="x2" from={point.left} to={position.left - 15} dur="2s" />
+                                  <animate attributeName="y2" from={point.top + 16} to={point.top + 16} dur="2s" />
+                                  <animate attributeName="stroke" from="transparent" to="white" dur="2s" fill="freeze" repeatCount="1" />
+                                </line>
+                                <line x1={position.left - 15} y1={point.top + 16} x2={position.left - 15} y2={position.top + 16} strokeWidth="2" stroke="transparent" strokeOpacity={strokeOpacity}>
+                                  <animate attributeName="x2" from={position.left - 15} to={position.left - 15} begin="2s" dur="1s" />
+                                  <animate attributeName="y2" from={point.top + 16} to={position.top + 16} begin="2s" dur="1s" />
+                                  <animate attributeName="stroke" from="transparent" to="white" begin="2s" dur="0.1s" fill="freeze" repeatCount="1" />
+                                </line>
+                                <line x1={position.left - 15} y1={position.top + 16} x2={position.left} y2={position.top + 16} strokeWidth="2" stroke="transparent" strokeOpacity={strokeOpacity}>
+                                  <animate attributeName="x2" from={position.left - 15} to={position.left} begin="3s" dur="0.5s" />
+                                  <animate attributeName="y2" from={position.top + 16} to={position.top + 16} begin="3s" dur="0.5s" />
+                                  <animate attributeName="stroke" from="transparent" to="white" begin="3s" dur="0.1s" fill="freeze" repeatCount="1" />
+                                </line>
                               </svg>
                             );
                           })
@@ -279,8 +687,18 @@ const Tree = () => {
                     style={position}
                   >
                     {node.title}
+                    {
+                      startingPoints.length ? (
+                        <i className="fa fa-caret-right"></i>
+                      ) : null
+                    }
                   </div>
-                </>
+                  {
+                    index === tempData.length - 1 && (
+                      <div className="node-height" style={{ height: starterCount * (pixelDiff + 0.5) }}></div>
+                    )
+                  }
+                </div>
               );
             })
           }
