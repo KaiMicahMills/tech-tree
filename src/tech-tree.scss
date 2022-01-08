@@ -140,6 +140,7 @@ a {
   border-top: 2px solid #FFF;
   background-color: #1D233C;
   overflow-x: auto;
+  box-sizing: border-box;
   padding-right: 75px;
 }
 
@@ -195,7 +196,7 @@ section {
   .node {
     text-align: center;
     display: inline-block;
-    padding: 5px 15px;
+    padding: 12px 15px;
     border: 2px solid $tree-border-color;
     color: rgba(0, 0, 0, 0.7);
     position: absolute;
@@ -214,15 +215,17 @@ section {
 
     i {
       position: absolute;
-      left: -10px;
-      font-size: 26px;
+      left: -8px;
+      font-size: 20px;
       color: #FFF;
-      top: 50%;
       margin-top: -1px;
-      transform: translateY(-50%);
       animation: iShow 0.5s forwards;
       animation-delay: 3.3s;
       opacity: 0;
+      height: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     &.core-technology {
