@@ -520,7 +520,7 @@ const Tree = () => {
         <div className="header-block">
           <img src="/foresight.png" alt="Foresight Institute" />
           <h1>Longevity Tech Tree</h1>
-          <h3>Prototype v0.1 (Jan 7, 2022)</h3>
+          <h3>Prototype v0.1 (Jan 8, 2022)</h3>
           <br />
           <h4>
             <a
