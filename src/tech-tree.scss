@@ -8,13 +8,6 @@
   Colors
  */
 
-// Background colors
-$tree-bg-yellow: #8e9aaf;
-$tree-bg-red: #cbc0d3;
-$tree-bg-blue: #efd3d7;
-$tree-bg-green: #feeafa;
-$tree-bg-orange: #dee2ff;
-
 // Key colors
 $tree-key-blue: #a0c4ff;
 $tree-key-purple: #ffc6ff;
@@ -23,6 +16,9 @@ $tree-key-green: #caffbf;
 
 // Extra colors
 $tree-border-color: #FFF;
+
+// Background
+$tree-background: #1d233c;
 
 /**
   Defaults
@@ -138,9 +134,8 @@ a {
 .sections {
   position: relative;
   border-top: 2px solid #FFF;
-  background-color: #1D233C;
+  background-color: $tree-background;
   overflow-x: auto;
-  padding-right: 75px;
 }
 
 section {
@@ -160,26 +155,6 @@ section {
     font-size: 15px;
     letter-spacing: 2px;
   }
-
-  &.reprogramming {
-    background-color: $tree-bg-yellow;
-  }
-
-  &.organic-replacement {
-    background-color: $tree-bg-red;
-  }
-
-  &.slowing-time {
-    background-color: $tree-bg-blue
-  }
-
-  &.synthetic-replacement {
-    background-color: $tree-bg-green;
-  }
-
-  &.damage-control {
-    background-color: $tree-bg-orange;
-  }
 }
 
 /**
@@ -195,13 +170,14 @@ section {
   .node {
     text-align: center;
     display: inline-block;
-    padding: 5px 15px;
+    padding: 12px 15px;
     border: 2px solid $tree-border-color;
     color: rgba(0, 0, 0, 0.7);
     position: absolute;
     white-space: nowrap;
     transition: 0.2s;
     z-index: 1;
+    margin-right: 100px;
 
     @keyframes iShow {
       from {
@@ -214,15 +190,17 @@ section {
 
     i {
       position: absolute;
-      left: -10px;
-      font-size: 26px;
+      left: -8px;
+      font-size: 20px;
       color: #FFF;
-      top: 50%;
       margin-top: -1px;
-      transform: translateY(-50%);
       animation: iShow 0.5s forwards;
       animation-delay: 3.3s;
       opacity: 0;
+      height: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     &.core-technology {

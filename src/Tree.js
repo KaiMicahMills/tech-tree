@@ -512,7 +512,7 @@ const Tree = () => {
    * Size of node + desired spacing
    * @type {number}
    */
-  const pixelDiff = 65;
+  const pixelDiff = 100;
 
   return (
     <div className="tree">
@@ -520,7 +520,7 @@ const Tree = () => {
         <div className="header-block">
           <img src="/foresight.png" alt="Foresight Institute" />
           <h1>Longevity Tech Tree</h1>
-          <h3>Prototype v0.1 (Nov 30, 2021)</h3>
+          <h3>Prototype v0.1 (Jan 8, 2022)</h3>
           <br />
           <h4>
             <a
@@ -641,6 +641,19 @@ const Tree = () => {
               });
               locRef = newLocRef;
               /**
+               * Node height & caret height for dynamic connection positions
+               * TODO: Get from refs of respective divs instead of hardcode
+               * @type {number}
+               */
+              const caretHeight = 12;
+              const nodeHeight = 47;
+              /**
+               * Reference for most recent dynamic connection `top` value
+               * @type {number}
+               */
+              let caretRef = 0;
+              let lineRef = 0;
+              /**
                * Render the node
                */
               return (
@@ -649,33 +662,60 @@ const Tree = () => {
                     startingPoints.length ? (
                       <>
                         {
-                          startingPoints.map((point) => {
+                          startingPoints.map((point, index) => {
                             /**
-                             * Lower the opacity for *very* long node connections
+                             * Add height of caret to reference
+                             * @type {number}
+                             */
+                            lineRef = lineRef + caretHeight;
+                            /**
+                             * Check if it's the first line
+                             */
+                            if (index === 0) {
+                              /**
+                               * Center lines vertically
+                               * @type {number}
+                               */
+                              const verticalDiff = nodeHeight - (caretHeight * startingPoints.length);
+                              lineRef = 0 + (verticalDiff / 2);
+                            }
+                            /**
+                             * Lower the opacity for based on long node connection length
                              * @type {number}
                              */
                             let strokeOpacity = 1;
-                            if (Math.abs(position.top) - Math.abs(point.top) > 400) {
-                              strokeOpacity = 0.25;
+                            if (Math.abs(position.top) - Math.abs(point.top) > 200) strokeOpacity = 0.75;
+                            if (Math.abs(position.top) - Math.abs(point.top) > 400) strokeOpacity = 0.5;
+                            if (Math.abs(position.top) - Math.abs(point.top) > 600) strokeOpacity = 0.25;
+                            /**
+                             * Random number generator
+                             * @param min
+                             * @param max
+                             * @returns {number}
+                             */
+                            const ranNumGen = (min, max) => {
+                              return Math.floor(Math.random() * (max - min + 1) + min)
                             }
+                            const ranX = ranNumGen(20, 80);
+                            const ranY = lineRef;
                             /**
                              * Render node connections
                              */
                             return (
-                              <svg key={point.id}>
-                                <line x1={point.left} y1={point.top + 16} x2={position.left - 15} y2={point.top + 16} strokeWidth="2" stroke="transparent" strokeOpacity={strokeOpacity}>
-                                  <animate attributeName="x2" from={point.left} to={position.left - 15} dur="2s" />
-                                  <animate attributeName="y2" from={point.top + 16} to={point.top + 16} dur="2s" />
+                              <svg key={point.id} style={{ marginTop: 7 }}>
+                                <line x1={point.left} y1={point.top + ranY} x2={position.left - ranX} y2={point.top + ranY} strokeWidth="2" stroke="transparent" strokeOpacity={strokeOpacity}>
+                                  <animate attributeName="x2" from={point.left} to={position.left - ranX} dur="2s" />
+                                  <animate attributeName="y2" from={point.top + ranY} to={point.top + ranY} dur="2s" />
                                   <animate attributeName="stroke" from="transparent" to="white" dur="2s" fill="freeze" repeatCount="1" />
                                 </line>
-                                <line x1={position.left - 15} y1={point.top + 16} x2={position.left - 15} y2={position.top + 16} strokeWidth="2" stroke="transparent" strokeOpacity={strokeOpacity}>
-                                  <animate attributeName="x2" from={position.left - 15} to={position.left - 15} begin="2s" dur="1s" />
-                                  <animate attributeName="y2" from={point.top + 16} to={position.top + 16} begin="2s" dur="1s" />
+                                <line x1={position.left - ranX} y1={point.top + ranY} x2={position.left - ranX} y2={position.top + ranY} strokeWidth="2" stroke="transparent" strokeOpacity={strokeOpacity}>
+                                  <animate attributeName="x2" from={position.left - ranX} to={position.left - ranX} begin="2s" dur="1s" />
+                                  <animate attributeName="y2" from={point.top + ranY} to={position.top + ranY} begin="2s" dur="1s" />
                                   <animate attributeName="stroke" from="transparent" to="white" begin="2s" dur="0.1s" fill="freeze" repeatCount="1" />
                                 </line>
-                                <line x1={position.left - 15} y1={position.top + 16} x2={position.left} y2={position.top + 16} strokeWidth="2" stroke="transparent" strokeOpacity={strokeOpacity}>
-                                  <animate attributeName="x2" from={position.left - 15} to={position.left} begin="3s" dur="0.5s" />
-                                  <animate attributeName="y2" from={position.top + 16} to={position.top + 16} begin="3s" dur="0.5s" />
+                                <line x1={position.left - ranX} y1={position.top + ranY} x2={position.left} y2={position.top + ranY} strokeWidth="2" stroke="transparent" strokeOpacity={strokeOpacity}>
+                                  <animate attributeName="x2" from={position.left - ranX} to={position.left} begin="3s" dur="0.5s" />
+                                  <animate attributeName="y2" from={position.top + ranY} to={position.top + ranY} begin="3s" dur="0.5s" />
                                   <animate attributeName="stroke" from="transparent" to="white" begin="3s" dur="0.1s" fill="freeze" repeatCount="1" />
                                 </line>
                               </svg>
@@ -692,9 +732,30 @@ const Tree = () => {
                   >
                     {node.title}
                     {
-                      startingPoints.length ? (
-                        <i className="fa fa-caret-right"></i>
-                      ) : null
+                      startingPoints.length ? startingPoints.map((point, index) => {
+                        /**
+                         * Add height of caret to reference
+                         * @type {number}
+                         */
+                        caretRef = caretRef + caretHeight;
+                        /**
+                         * Check if it's the first caret
+                         */
+                        if (index === 0) {
+                          /**
+                           * Center carets vertically
+                           * @type {number}
+                           */
+                          const verticalDiff = nodeHeight - (caretHeight * startingPoints.length);
+                          caretRef = 0 + (verticalDiff / 2);
+                        }
+                        /**
+                         * Render carets
+                         */
+                        return (
+                          <i className="fa fa-caret-right" style={{ top: caretRef }}></i>
+                        )
+                      }) : null
                     }
                   </div>
                   {
@@ -709,7 +770,7 @@ const Tree = () => {
         </div>
       </div>
       <div className="footer">
-        <p>Copyright &copy; 2021 Foresight Institute, all rights reserved.</p>
+        <p>Copyright &copy; 2022 Foresight Institute, all rights reserved.</p>
       </div>
     </div>
   )
