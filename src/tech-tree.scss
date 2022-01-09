@@ -8,13 +8,6 @@
   Colors
  */
 
-// Background colors
-$tree-bg-yellow: #8e9aaf;
-$tree-bg-red: #cbc0d3;
-$tree-bg-blue: #efd3d7;
-$tree-bg-green: #feeafa;
-$tree-bg-orange: #dee2ff;
-
 // Key colors
 $tree-key-blue: #a0c4ff;
 $tree-key-purple: #ffc6ff;
@@ -23,6 +16,9 @@ $tree-key-green: #caffbf;
 
 // Extra colors
 $tree-border-color: #FFF;
+
+// Background
+$tree-background: #1d233c;
 
 /**
   Defaults
@@ -138,10 +134,8 @@ a {
 .sections {
   position: relative;
   border-top: 2px solid #FFF;
-  background-color: #1D233C;
+  background-color: $tree-background;
   overflow-x: auto;
-  box-sizing: border-box;
-  padding-right: 75px;
 }
 
 section {
@@ -160,26 +154,6 @@ section {
     text-transform: uppercase;
     font-size: 15px;
     letter-spacing: 2px;
-  }
-
-  &.reprogramming {
-    background-color: $tree-bg-yellow;
-  }
-
-  &.organic-replacement {
-    background-color: $tree-bg-red;
-  }
-
-  &.slowing-time {
-    background-color: $tree-bg-blue
-  }
-
-  &.synthetic-replacement {
-    background-color: $tree-bg-green;
-  }
-
-  &.damage-control {
-    background-color: $tree-bg-orange;
   }
 }
 
@@ -203,6 +177,7 @@ section {
     white-space: nowrap;
     transition: 0.2s;
     z-index: 1;
+    margin-right: 100px;
 
     @keyframes iShow {
       from {
