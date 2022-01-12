@@ -360,7 +360,8 @@ const Tree = () => {
                               <>
                                 <i className="fa fa-check" onClick={() => {
                                   /**
-                                   * TODO: add new node to data structure
+                                   * Add modified node to data structure
+                                   * TODO: new node functionality
                                    */
                                   setMadeChanges(true);
                                   setEditingNode(null);
