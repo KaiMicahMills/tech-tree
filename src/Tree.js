@@ -348,7 +348,7 @@ const Tree = () => {
                          * TODO: match caret opacity to line opacity?
                          */
                         return (
-                          <i className="fa fa-caret-right caret" style={{ top: caretRef }} />
+                          <i className="fa fa-caret-right caret" style={{ top: caretRef }} key={index} />
                         )
                       }) : null
                     }
@@ -365,7 +365,6 @@ const Tree = () => {
                                    */
                                   setMadeChanges(true);
                                   setEditingNode(null);
-                                  setIsNewNode(false);
                                   /**
                                    * Find node location
                                    */
@@ -421,20 +420,58 @@ const Tree = () => {
                                   let tempData = d;
                                   tempData.splice(treeLoc, 0, newNode);
                                   setTreeData(tempData);
+                                  setIsNewNode(false);
                                 }} />
                                 <i className="fa fa-ban" onClick={() => {
+                                  /**
+                                   * If cancelling new node
+                                   */
+                                  if (isNewNode) {
+                                    setTreeData(treeData.filter((n) => n.title.replace(/\s/g, '-').toLowerCase() !== editingNode));
+                                  }
+                                  /**
+                                   * Cancel
+                                   */
                                   setIsNewNode(false);
-                                  setEditingNode(null)
+                                  setEditingNode(null);
                                 }} />
                               </>
                             ) : (
                               <>
                                 <i className="fa fa-plus" onClick={() => {
-                                  /**
-                                   * TODO: add new node with this node as backwards relation
-                                   */
+                                  setEditingNode(null);
                                   setIsNewNode(true);
-                                }}/>
+                                  /**
+                                   * Creating new node
+                                   * @type {{}}
+                                   */
+                                  let d = treeData;
+                                  let treeLoc = null;
+                                  /**
+                                   * Find current node location, save for later
+                                   */
+                                  d.forEach((n, i) => {
+                                    if (n.title === node.title) {
+                                      treeLoc = i;
+                                    } else if (n.title === `Node ${treeLoc + 1}`) {
+                                      /**
+                                       * If there are unmodified new nodes already,
+                                       * continue creating unique names
+                                       */
+                                      treeLoc++;
+                                    }
+                                  });
+                                  /**
+                                   * Place new node after the current node
+                                   */
+                                  let newNode = NodeTemplate;
+                                  newNode.title = `Node ${treeLoc + 1}`
+                                  newNode.type = 'core-technology';
+                                  newNode.relations = [`${node.title}`];
+                                  d.splice(treeLoc + 1, 0, newNode);
+                                  setEditingNode(newNode.title.replace(/\s/g, '-').toLowerCase());
+                                  setTreeData(d);
+                                }} />
                                 <i className="fa fa-pencil" onClick={() => setEditingNode(id)} />
                                 <i className="fa fa-trash" onClick={() => {
                                   /**
