@@ -1,5 +1,6 @@
 import './tech-tree.scss';
 import Data from "./Data";
+import {useRef, useState} from "react";
 
 /**
  * Longevity Tech Tree
@@ -9,6 +10,46 @@ import Data from "./Data";
  */
 
 const Tree = () => {
+
+  /**
+   * Template for new nodes
+   * @type {{title: string, type: string}}
+   */
+  const NodeTemplate = {
+    title: '',
+    type: '',
+  }
+  /**
+   * Edit mode state
+   */
+  const [editMode, setEditMode] = useState(false);
+
+  /**
+   * Check if user made any changes
+   */
+  const [madeChanges, setMadeChanges] = useState(false);
+
+  /**
+   * Node that's currently being edited or created
+   */
+  const [editingNode, setEditingNode] = useState(null);
+
+  /**
+   * Check if the edited node is new or not
+   */
+  const [isNewNode, setIsNewNode] = useState(false);
+
+  /**
+   * Reference of inputs for editing or creating nodes
+   */
+  const inputRef = useRef();
+  const selectRef = useRef();
+
+  /**
+   * Tree data fetched from the original data file,
+   * then saved as a state to modify later
+   */
+  const [treeData, setTreeData] = useState(Data);
 
   /**
    * Location Reference
@@ -30,7 +71,7 @@ const Tree = () => {
   const pixelDiff = 100;
 
   return (
-    <div className="tree">
+    <div className={`tree ${editMode ? 'editing' : 'viewing'}`}>
       <div className="header">
         <div className="header-block">
           <img src="/foresight.png" alt="Foresight Institute" />
@@ -71,9 +112,26 @@ const Tree = () => {
         </div>
       </div>
       <div className="sections">
+        <div className="edit-cover">
+          {
+            editMode && madeChanges && (
+              <div className="submit" onClick={() => {
+                /**
+                 * TODO: submit changes
+                 */
+              }}>
+                Submit for review <i className="fa fa-check"/>
+              </div>
+            )
+          }
+          <div className="edit" onClick={() => setEditMode(!editMode)}>
+            <p>{editMode ? <>Disable</> : <>Enable</>} Edit Mode</p>
+            <i className="fa fa-network-wired" />
+          </div>
+        </div>
         <div className="nodes">
           {
-            Data.map((node, index) => {
+            treeData.map((node, index) => {
               /**
                * Set ID of node
                * @type {string}
@@ -192,7 +250,7 @@ const Tree = () => {
                                * @type {number}
                                */
                               const verticalDiff = nodeHeight - (caretHeight * startingPoints.length);
-                              lineRef = 0 + (verticalDiff / 2);
+                              lineRef = verticalDiff / 2;
                             }
                             /**
                              * Lower the opacity for based on long node connection length
@@ -241,11 +299,32 @@ const Tree = () => {
                     ) : null
                   }
                   <div
-                    className={`node ${node.type}`}
+                    className={`node ${node.type} ${editingNode === id ? 'top' : ''}`}
                     id={id}
                     style={position}
                   >
-                    {node.title}
+                    {
+                      editMode ? (
+                        <>
+                          {
+                            editingNode === id ? (
+                              <div className="edit-inputs">
+                                <input type="text" defaultValue={node.title} ref={editingNode === id ? inputRef : null} />
+                                <select ref={editingNode === id ? selectRef : null} defaultValue={node.type}>
+                                  <option value="core-technology">Core Technology</option>
+                                  <option value="longevity-tech">Longevity Tech</option>
+                                  <option value="general-improvement">General Improvement</option>
+                                </select>
+                              </div>
+                            ) : (
+                              <>{node.title}</>
+                            )
+                          }
+                        </>
+                      ) : (
+                        <>{node.title}</>
+                      )
+                    }
                     {
                       startingPoints.length ? startingPoints.map((point, index) => {
                         /**
@@ -262,19 +341,116 @@ const Tree = () => {
                            * @type {number}
                            */
                           const verticalDiff = nodeHeight - (caretHeight * startingPoints.length);
-                          caretRef = 0 + (verticalDiff / 2);
+                          caretRef = verticalDiff / 2;
                         }
                         /**
                          * Render carets
+                         * TODO: match caret opacity to line opacity?
                          */
                         return (
-                          <i className="fa fa-caret-right" style={{ top: caretRef }}></i>
+                          <i className="fa fa-caret-right caret" style={{ top: caretRef }} />
                         )
                       }) : null
                     }
+                    {
+                      editMode && (
+                        <div className="edit-icons">
+                          {
+                            editingNode === id ? (
+                              <>
+                                <i className="fa fa-check" onClick={() => {
+                                  /**
+                                   * TODO: add new node to data structure
+                                   */
+                                  setMadeChanges(true);
+                                  setEditingNode(null);
+                                  setIsNewNode(false);
+                                  /**
+                                   * Find node location
+                                   */
+                                  let treeLoc = null;
+                                  let treeRel = null;
+                                  /**
+                                   * Store tree data temporarily
+                                   * @type {{}}
+                                   */
+                                  let d = treeData;
+                                  /**
+                                   * Update relations, if any, if edit changes name
+                                   */
+                                  d.forEach((n, i) => {
+                                    if (n.relations && n.relations.length) {
+                                      /**
+                                       * Search to see if there are any
+                                       * backwards relation matches
+                                       */
+                                      n.relations.forEach((r, ii) => {
+                                        if (r === node.title) {
+                                          /**
+                                           * There's a match, let's replace it
+                                           */
+                                          d[i].relations.splice(ii, 1);
+                                          d[i].relations.splice(ii, 0, inputRef.current.value);
+                                        }
+                                      })
+                                    }
+                                    if (n.title === node.title) {
+                                      /**
+                                       * Save node location for later
+                                       */
+                                      treeLoc = i;
+                                      if (n.relations) treeRel = n.relations;
+                                    }
+                                  });
+                                  /**
+                                   * Remove previous node
+                                   */
+                                  d = d.filter((n) => n.title !== node.title);
+                                  setTreeData(d);
+                                  /**
+                                   * Build new node
+                                   */
+                                  let newNode = NodeTemplate;
+                                  newNode.title = inputRef.current.value;
+                                  newNode.type = selectRef.current.value.replace(' ', '-').toLowerCase();
+                                  if (treeRel) newNode.relations = treeRel;
+                                  /**
+                                   * Add node to correct location,
+                                   */
+                                  let tempData = d;
+                                  tempData.splice(treeLoc, 0, newNode);
+                                  setTreeData(tempData);
+                                }} />
+                                <i className="fa fa-ban" onClick={() => {
+                                  setIsNewNode(false);
+                                  setEditingNode(null)
+                                }} />
+                              </>
+                            ) : (
+                              <>
+                                <i className="fa fa-plus" onClick={() => {
+                                  /**
+                                   * TODO: add new node with this node as backwards relation
+                                   */
+                                  setIsNewNode(true);
+                                }}/>
+                                <i className="fa fa-pencil" onClick={() => setEditingNode(id)} />
+                                <i className="fa fa-trash" onClick={() => {
+                                  /**
+                                   * Remove node from data structure
+                                   */
+                                  setMadeChanges(true);
+                                  setTreeData(treeData.filter((n) => n.title !== node.title));
+                                }} />
+                              </>
+                            )
+                          }
+                        </div>
+                      )
+                    }
                   </div>
                   {
-                    index === Data.length - 1 && (
+                    index === treeData.length - 1 && (
                       <div className="node-height" style={{ height: starterCount * (pixelDiff + 0.5) }}></div>
                     )
                   }
