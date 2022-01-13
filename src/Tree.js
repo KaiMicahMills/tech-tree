@@ -378,7 +378,6 @@ const Tree = () => {
                                    * Find node location
                                    */
                                   let treeLoc = null;
-                                  let treeRel = null;
                                   /**
                                    * Store tree data temporarily
                                    * @type {{}}
