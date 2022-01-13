@@ -217,6 +217,14 @@ section {
 .edit-inputs {
   display: flex;
   flex-direction: column;
+
+  label {
+    text-align: left;
+    margin-bottom: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
 }
 
 /**

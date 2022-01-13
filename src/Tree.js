@@ -43,6 +43,7 @@ const Tree = () => {
    * Reference of inputs for editing or creating nodes
    */
   const inputRef = useRef();
+  const relationsRef = useRef();
   const selectRef = useRef();
 
   /**
@@ -153,7 +154,12 @@ const Tree = () => {
                * Check if node has any backwards relations
                */
               const startingPoints = [];
+              let relList = '';
               if (node.relations && node.relations.length) {
+                /**
+                 * Build string for edit mode from relations list
+                 */
+                relList = node.relations.join(', ');
                 let pushed = false;
                 locRef.forEach((n) => {
                   /**
@@ -309,8 +315,12 @@ const Tree = () => {
                           {
                             editingNode === id ? (
                               <div className="edit-inputs">
-                                <input type="text" defaultValue={node.title} ref={editingNode === id ? inputRef : null} />
-                                <select ref={editingNode === id ? selectRef : null} defaultValue={node.type}>
+                                <label htmlFor="title">Title:</label>
+                                <input id="title" type="text" defaultValue={node.title} ref={editingNode === id ? inputRef : null} />
+                                <label htmlFor="relations">Relations (separate by commas):</label>
+                                <input id="relations" type="text" defaultValue={relList} ref={editingNode === id ? relationsRef : null} />
+                                <label htmlFor="type">Type:</label>
+                                <select id="type" ref={editingNode === id ? selectRef : null} defaultValue={node.type}>
                                   <option value="core-technology">Core Technology</option>
                                   <option value="longevity-tech">Longevity Tech</option>
                                   <option value="general-improvement">General Improvement</option>
@@ -361,7 +371,6 @@ const Tree = () => {
                                 <i className="fa fa-check" onClick={() => {
                                   /**
                                    * Add modified node to data structure
-                                   * TODO: new node functionality
                                    */
                                   setMadeChanges(true);
                                   setEditingNode(null);
@@ -399,7 +408,6 @@ const Tree = () => {
                                        * Save node location for later
                                        */
                                       treeLoc = i;
-                                      if (n.relations) treeRel = n.relations;
                                     }
                                   });
                                   /**
@@ -413,7 +421,7 @@ const Tree = () => {
                                   let newNode = NodeTemplate;
                                   newNode.title = inputRef.current.value;
                                   newNode.type = selectRef.current.value.replace(' ', '-').toLowerCase();
-                                  if (treeRel) newNode.relations = treeRel;
+                                  newNode.relations = relationsRef.current.value.split(',').map((item) => item.trim());
                                   /**
                                    * Add node to correct location,
                                    */
