@@ -418,9 +418,9 @@ const Tree = () => {
                                    * Build new node
                                    */
                                   let newNode = NodeTemplate;
-                                  newNode.title = inputRef.current.value;
+                                  newNode.title = inputRef.current.value.trim();
                                   newNode.type = selectRef.current.value.replace(' ', '-').toLowerCase();
-                                  newNode.relations = relationsRef.current.value.split(',').map((item) => item.trim());
+                                  newNode.relations = relationsRef.current.value.split(',').map((r) => r.trim());
                                   /**
                                    * Add node to correct location,
                                    */
