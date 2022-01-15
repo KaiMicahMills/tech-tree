@@ -31,6 +31,20 @@ const Data = [
     ]
   },
   {
+    "title": "hello",
+    "type": "core-technology",
+    "relations": [
+      "Regeneration Cycles"
+    ]
+  },
+  {
+    "title": "world",
+    "type": "core-technology",
+    "relations": [
+      "hello"
+    ]
+  },
+  {
     "title": "Insomnia Cure",
     "type": "general-improvement",
     "relations": [
@@ -63,31 +77,6 @@ const Data = [
   {
     "title": "Gene Replacement Therapy",
     "type": "core-technology"
-  },
-  {
-    "title": "Senescence Control",
-    "type": "core-technology",
-    "relations": [
-      "Dedifferentiation",
-      "Senolytics"
-    ]
-  },
-  {
-    "title": "Regeneration of Senescent Cells",
-    "type": "longevity-tech",
-    "relations": [
-      "Senescence Control"
-    ]
-  },
-  {
-    "title": "Cure for Cancer",
-    "type": "general-improvement",
-    "relations": [
-      "Senescence Control",
-      "Telomere Control",
-      "Gene Repair Control",
-      "Gene Replacement Therapy"
-    ]
   },
   {
     "title": "Molecule Replacement",
