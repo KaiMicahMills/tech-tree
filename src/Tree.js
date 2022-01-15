@@ -113,7 +113,7 @@ const Tree = () => {
           {
             files: {
               "src/Data.js": {
-                content: Base64.encode(`const Data=${JSON.stringify(treeData)}; export default Data;`),
+                content: Base64.encode(`const Data = ${JSON.stringify(treeData, undefined, 2)};\n\nexport default Data;`),
                 encoding: "base64",
               },
             },
@@ -129,7 +129,12 @@ const Tree = () => {
         setSubmitted(true);
         setLoading(false);
       }).catch((err) => {
-        console.log(err);
+        /**
+         * Submission failed
+         */
+        setLoading(false);
+        console.error(err);
+        alert(err);
     });
   };
 
