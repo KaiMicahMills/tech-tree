@@ -25,7 +25,8 @@ const Data = [
     "type": "core-technology",
     "relations": [
       "Epigenetics",
-      "Electrodynamics"
+      "Electrodynamics",
+      "Gene Therapy"
     ]
   },
   {
@@ -103,6 +104,48 @@ const Data = [
   {
     "title": "Heat Shock Response Control",
     "type": "core-technology"
+  },
+  {
+    "title": "Apoptosis",
+    "type": "core-technology",
+    "relations": [
+      ""
+    ]
+  },
+  {
+    "title": "Hormesis",
+    "type": "core-technology",
+    "relations": [
+      ""
+    ]
+  },
+  {
+    "title": "Autophagy Control",
+    "type": "core-technology",
+    "relations": [
+      ""
+    ]
+  },
+  {
+    "title": "Glymphatic System Control",
+    "type": "core-technology",
+    "relations": [
+      ""
+    ]
+  },
+  {
+    "title": "Complete Detritus Recycling",
+    "type": "longevity-tech",
+    "relations": [
+      "Glymphatic System Control"
+    ]
+  },
+  {
+    "title": "Microbiome Control",
+    "type": "core-technology",
+    "relations": [
+      ""
+    ]
   },
   {
     "title": "Extracellular Matrix Turnover",
