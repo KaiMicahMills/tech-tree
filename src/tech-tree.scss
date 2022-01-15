@@ -439,12 +439,18 @@ svg {
   .success-buttons {
     margin-top: 50px;
 
-    a {
+    button {
       color: #FFF;
       padding: 10px;
       border: 1px solid #FFF;
       margin: 0 7.5px;
       text-decoration: none;
+      background-color: transparent;
+      font-size: 16px;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }
