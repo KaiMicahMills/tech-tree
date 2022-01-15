@@ -31,13 +31,6 @@ const Data = [
     ]
   },
   {
-    "title": "Test",
-    "type": "core-technology",
-    "relations": [
-      "Regeneration Cycles"
-    ]
-  },
-  {
     "title": "Insomnia Cure",
     "type": "general-improvement",
     "relations": [
