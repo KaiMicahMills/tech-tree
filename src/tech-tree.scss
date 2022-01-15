@@ -169,13 +169,15 @@ section {
   bottom: 0;
   left: 0;
   z-index: 9999;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  box-sizing: border-box;
+  padding-right: 75px;
 }
 
 .edit, .submit {
   text-transform: uppercase;
-  position: absolute;
-  bottom: 0;
-  right: 75px;
   color: #FFF;
   display: flex;
   align-items: center;
@@ -186,10 +188,15 @@ section {
   height: 50px;
   font-weight: bold;
   letter-spacing: 1px;
-  width: 160px;
+  width: 110px;
   justify-content: center;
   white-space: nowrap;
   transition: 0.5s;
+  margin-left: 15px;
+
+  &:only-child {
+    margin-left: 0;
+  }
 
   &:hover {
     cursor: pointer;
@@ -203,8 +210,42 @@ section {
   }
 }
 
-.submit {
-  right: 285px;
+.submit-cover {
+  display: flex;
+  flex-direction: column;
+
+  .submit {
+
+    &.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+
+  input {
+    height: 25px;
+    width: 144px;
+    box-sizing: border-box;
+    border: 2px solid #FFF;
+    font-family: 'Lato', sans-serif;
+    padding: 5px;
+    letter-spacing: 0.25px;
+    font-size: 14px;
+    margin-left: 15px;
+    margin-bottom: 2px;
+
+    &:focus {
+      outline: 0;
+    }
+
+    &[type=text] {
+
+    }
+
+    &[type=email] {
+
+    }
+  }
 }
 
 .editing {
@@ -371,6 +412,50 @@ svg {
 }
 
 /**
+  Success screen
+ */
+
+.success {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 9999999;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  h1 {
+    color: #FFF;
+  }
+
+  p {
+    color: #FFF;
+  }
+
+  .success-buttons {
+    margin-top: 50px;
+
+    button {
+      color: #FFF;
+      padding: 10px;
+      border: 1px solid #FFF;
+      margin: 0 7.5px;
+      text-decoration: none;
+      background-color: transparent;
+      font-size: 16px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+/**
   Responsive Support
  */
 
@@ -389,5 +474,9 @@ svg {
         width: 100%;
       }
     }
+  }
+  .edit-cover {
+    justify-content: center;
+    padding-right: 0;
   }
 }
