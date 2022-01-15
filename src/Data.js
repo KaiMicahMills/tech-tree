@@ -31,10 +31,24 @@ const Data = [
     ]
   },
   {
+    "title": "Hello",
+    "type": "longevity-tech",
+    "relations": [
+      "Regeneration Cycles"
+    ]
+  },
+  {
     "title": "Insomnia Cure",
     "type": "general-improvement",
     "relations": [
       "Circadian Rhythm Control"
+    ]
+  },
+  {
+    "title": "Testing",
+    "type": "core-technology",
+    "relations": [
+      "Insomnia Cure"
     ]
   },
   {
