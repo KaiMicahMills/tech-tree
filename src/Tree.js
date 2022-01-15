@@ -584,8 +584,8 @@ const Tree = () => {
           <div className="success">
             <h1>Submission successful!</h1>
             <div className="success-buttons">
-              <a href="https://github.com/KaiMicahMills/tech-tree/pulls">
-                <button onClick={() => setSubmitted(false)}>View Pull Request</button>
+              <a href="https://github.com/KaiMicahMills/tech-tree/pulls" rel="noreferrer" target="_blank">
+                <button>View Pull Request</button>
               </a>
               <button onClick={() => setSubmitted(false)}>Return to Tree</button>
             </div>
