@@ -93,7 +93,7 @@ const Tree = () => {
      * stored in Vercel
      * @type {string}
      */
-    const TOKEN = process.env.GITHUB_ACCESS_TOKEN;
+    const TOKEN = process.env.REACT_APP_TOKEN;
     const octokit = new MyOctokit({
       auth: TOKEN,
     });
