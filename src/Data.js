@@ -37,6 +37,13 @@ const Data = [
     ]
   },
   {
+    "title": "Gene Repair Control",
+    "type": "core-technology",
+    "relations": [
+      ""
+    ]
+  },
+  {
     "title": "Cure for Cancer",
     "type": "general-improvement",
     "relations": [
@@ -78,13 +85,6 @@ const Data = [
     "type": "longevity-tech",
     "relations": [
       "Circadian Rhythm Control"
-    ]
-  },
-  {
-    "title": "Gene Repair Control",
-    "type": "core-technology",
-    "relations": [
-      ""
     ]
   },
   {

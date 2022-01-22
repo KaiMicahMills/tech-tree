@@ -25,6 +25,11 @@ const Tree = () => {
     type: '',
   }
   /**
+   * Inner node page states
+   */
+  const [nodeInfoOpen, setNodeInfoOpen] = useState(true);
+  const [nodeInfo, setNodeInfo] = useState(null);
+  /**
    * Edit mode state
    */
   const [editMode, setEditMode] = useState(false);
@@ -197,6 +202,22 @@ const Tree = () => {
    */
   return (
     <>
+      {
+        nodeInfoOpen && nodeInfo && !editMode && (
+          <div className="overlay success">
+            <div className="node-info">
+              <span onClick={() => setNodeInfoOpen(false)}>
+                <i className="fa fa-long-arrow-alt-left"></i>
+                Back
+              </span>
+              <h1>{nodeInfo.title}</h1>
+              <br />
+              {nodeInfo.description && <p>{nodeInfo.description}</p>}
+              <p>Coming soon: List of companies/labs working on this problem, ways to get involved/donate/invest, and comments.</p>
+            </div>
+          </div>
+        )
+      }
       <div className={`tree ${editMode ? 'editing' : 'viewing'}`}>
         <div className="header">
           <div className="header-block">
@@ -254,7 +275,10 @@ const Tree = () => {
                 </div>
               )
             }
-            <div className="edit" onClick={() => setEditMode(!editMode)}>
+            <div className="edit" onClick={() =>  {
+              setEditMode(!editMode);
+              setNodeInfoOpen(false);
+            }}>
               <p>{editMode ? <>View Mode</> : <>Edit Mode</>}</p>
               { editMode ? <i className="fa fa-eye" /> : <i className="fa fa-network-wired" /> }
             </div>
@@ -432,6 +456,10 @@ const Tree = () => {
                       className={`node ${node.type} ${editingNode === id ? 'top' : ''}`}
                       id={id}
                       style={position}
+                      onClick={() => {
+                        setNodeInfo(node);
+                        setNodeInfoOpen(true);
+                      }}
                     >
                       {
                         editMode ? (
