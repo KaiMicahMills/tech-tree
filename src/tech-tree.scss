@@ -413,7 +413,7 @@ svg {
   height: 100%;
   width: 100%;
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.9);
   z-index: 9999999;
   top: 0;
   left: 0;
@@ -459,7 +459,7 @@ svg {
   }
 
   to {
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.9);
   }
 }
 
@@ -477,7 +477,7 @@ svg {
 
 .overlay {
   animation: fade 0.2s;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.9);
 
   .node-info {
     height: 60%;
