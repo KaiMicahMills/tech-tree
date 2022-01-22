@@ -139,6 +139,7 @@ a {
   position: relative;
   border-top: 2px solid #FFF;
   background-color: $tree-background;
+  overflow-y: hidden;
   overflow-x: auto;
 }
 
@@ -237,14 +238,6 @@ section {
     &:focus {
       outline: 0;
     }
-
-    &[type=text] {
-
-    }
-
-    &[type=email] {
-
-    }
   }
 }
 
@@ -277,6 +270,8 @@ section {
   top: 0;
   left: 75px;
   padding-bottom: 65px;
+  margin-right: 75px;
+  display: inline-block;
 
   .node {
     text-align: center;
