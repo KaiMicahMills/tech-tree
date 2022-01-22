@@ -89,6 +89,10 @@ const Tree = () => {
         node.relations.forEach((relation) => {
           if (!saveData.includes(relation)) {
             /**
+             * Check if relation is invalid
+             */
+            if (!refData.includes(relation)) return;
+            /**
              * New location should be after furthest relation down the tree
              */
             if (refData.indexOf(relation) > newLoc) newLoc = refData.indexOf(relation);
