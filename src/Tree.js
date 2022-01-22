@@ -618,16 +618,12 @@ const Tree = () => {
                         )
                       }
                     </div>
-                    {
-                      index === treeData.length - 1 && (
-                        <div className="node-height" style={{ height: (starterCount + 1) * pixelDiff }}></div>
-                      )
-                    }
                   </div>
                 );
               })
             }
           </div>
+          <div className="node-height" style={{ height: (starterCount + 1) * pixelDiff, minHeight: 500 }}></div>
         </div>
         <div className="footer">
           <p>Copyright &copy; 2022 Foresight Institute, all rights reserved.</p>
