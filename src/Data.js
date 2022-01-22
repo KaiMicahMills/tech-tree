@@ -314,13 +314,6 @@ const Data = [
     ]
   },
   {
-    "title": "Inflammation",
-    "type": "core-technology",
-    "relations": [
-      ""
-    ]
-  },
-  {
     "title": "Inflammaging",
     "type": "core-technology",
     "relations": [
