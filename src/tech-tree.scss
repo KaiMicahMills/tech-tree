@@ -72,7 +72,7 @@ a {
   }
 
   .header-block {
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: rgba(0, 0, 0, 0.8);
     height: 300px;
     display: flex;
     justify-content: center;
@@ -139,6 +139,7 @@ a {
   position: relative;
   border-top: 2px solid #FFF;
   background-color: $tree-background;
+  overflow-y: hidden;
   overflow-x: auto;
 }
 
@@ -237,14 +238,6 @@ section {
     &:focus {
       outline: 0;
     }
-
-    &[type=text] {
-
-    }
-
-    &[type=email] {
-
-    }
   }
 }
 
@@ -277,6 +270,7 @@ section {
   top: 0;
   left: 75px;
   padding-bottom: 65px;
+  display: inline-block;
 
   .node {
     text-align: center;
@@ -419,7 +413,7 @@ svg {
   height: 100%;
   width: 100%;
   position: fixed;
-  background-color: rgba(0, 0, 0, 0.95);
+  background-color: rgba(0, 0, 0, 0.9);
   z-index: 9999999;
   top: 0;
   left: 0;
@@ -456,6 +450,63 @@ svg {
 }
 
 /**
+  Node Info
+ */
+
+@keyframes fade {
+  from {
+    background-color: rgba(0, 0, 0, 0);
+  }
+
+  to {
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+}
+
+@keyframes grow {
+  from {
+    transform: scale(0.9, 0.9);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+
+.overlay {
+  animation: fade 0.2s;
+  background-color: rgba(0, 0, 0, 0.9);
+
+  .node-info {
+    height: 60%;
+    width: 60%;
+    background-color: $tree-background;
+    box-sizing: border-box;
+    padding: 75px;
+    position: relative;
+    animation: grow 0.2s;
+
+    span {
+      display: flex;
+      position: absolute;
+      top: 37.5px;
+      right: 37.5px;
+      color: #FFF;
+
+      i {
+        margin: 3px 5px 0 0;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+/**
   Responsive Support
  */
 
@@ -478,5 +529,23 @@ svg {
   .edit-cover {
     justify-content: center;
     padding-right: 0;
+  }
+  .overlay {
+
+    .node-info {
+      height: 90%;
+      width: 90%;
+      padding: 25px;
+
+      span {
+        top: 25px;
+        right: 25px;
+      }
+
+      h1 {
+        font-size: 24px;
+        padding-right: 100px;
+      }
+    }
   }
 }

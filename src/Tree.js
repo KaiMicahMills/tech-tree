@@ -4,7 +4,7 @@ import { useRef, useState } from "react";
 import { Base64 } from "js-base64";
 
 /**
- * Longevity Tech Tree
+ * Tech Tree
  * Copyright 2022 Foresight Institute
  * @returns {JSX.Element}
  * @constructor
@@ -24,6 +24,11 @@ const Tree = () => {
     title: '',
     type: '',
   }
+  /**
+   * Inner node page states
+   */
+  const [nodeInfoOpen, setNodeInfoOpen] = useState(true);
+  const [nodeInfo, setNodeInfo] = useState(null);
   /**
    * Edit mode state
    */
@@ -51,6 +56,64 @@ const Tree = () => {
    * then saved as a state to modify later
    */
   const [treeData, setTreeData] = useState(Data);
+  /**
+   * Function to clean up relations
+   *
+   * For example, if you add a relation to a node that appears
+   * after said node, the relation won't connect automatically.
+   * This function moves that node to the correct position so
+   * that it appears after each of its relations.
+   *
+   * TODO: this is temporary & slow, shouldn't need it
+   */
+  const Cleanup = (tree) => {
+    /**
+     * Store all references for node lookup
+     * @type {*[]}
+     */
+    let refData = [];
+    tree.map((node) => refData.push(node.title));
+    /**
+     * Store current mapped references
+     * @type {*[]}
+     */
+    let saveData = [];
+    /**
+     * Search for invalid forwards relations
+     */
+    let cleanedData = tree;
+    tree.forEach((node) => {
+      saveData.push(node.title);
+      let newLoc = 0;
+      if (node.relations && node.relations.length && node.relations[0] !== '') {
+        node.relations.forEach((relation) => {
+          if (!saveData.includes(relation)) {
+            /**
+             * Check if relation is invalid
+             */
+            if (!refData.includes(relation)) return;
+            /**
+             * New location should be after furthest relation down the tree
+             */
+            if (refData.indexOf(relation) > newLoc) newLoc = refData.indexOf(relation);
+            /**
+             * Move node to new location and update reference & saved data list
+             */
+            saveData = saveData.filter((n) => n !== node.title);
+            saveData.splice(newLoc, 0, node.title);
+            refData = refData.filter((n) => n !== node.title);
+            refData.splice(newLoc, 0, node.title);
+            cleanedData = cleanedData.filter((n) => n.title !== node.title);
+            cleanedData.splice(newLoc, 0, node);
+          }
+        });
+      }
+    });
+    /**
+     * Return re-ordered data
+     */
+    return cleanedData;
+  };
   /**
    * Location Reference
    * Stores the absolute location of node elements for future usage
@@ -143,12 +206,28 @@ const Tree = () => {
    */
   return (
     <>
+      {
+        nodeInfoOpen && nodeInfo && !editMode && (
+          <div className="overlay success">
+            <div className="node-info">
+              <span onClick={() => setNodeInfoOpen(false)}>
+                <i className="fa fa-long-arrow-alt-left"></i>
+                Back
+              </span>
+              <h1>{nodeInfo.title}</h1>
+              <br />
+              {nodeInfo.description && <p>{nodeInfo.description}</p>}
+              <p>Coming soon: List of companies/labs working on this problem, ways to get involved/donate/invest, and comments.</p>
+            </div>
+          </div>
+        )
+      }
       <div className={`tree ${editMode ? 'editing' : 'viewing'}`}>
         <div className="header">
           <div className="header-block">
             <img src="/foresight.png" alt="Foresight Institute" />
             <h1>Longevity Tech Tree</h1>
-            <h3>Prototype v0.1 (Jan 8, 2022)</h3>
+            <h3>Prototype v0.1 (Jan 22, 2022)</h3>
             <br />
             <h4>
               <a
@@ -200,7 +279,10 @@ const Tree = () => {
                 </div>
               )
             }
-            <div className="edit" onClick={() => setEditMode(!editMode)}>
+            <div className="edit" onClick={() =>  {
+              setEditMode(!editMode);
+              setNodeInfoOpen(false);
+            }}>
               <p>{editMode ? <>View Mode</> : <>Edit Mode</>}</p>
               { editMode ? <i className="fa fa-eye" /> : <i className="fa fa-network-wired" /> }
             </div>
@@ -230,7 +312,7 @@ const Tree = () => {
                  */
                 const startingPoints = [];
                 let relList = '';
-                if (node.relations && node.relations.length) {
+                if (node.relations && node.relations.length && node.relations[0] !== '') {
                   /**
                    * Build string for edit mode from relations list
                    */
@@ -378,6 +460,10 @@ const Tree = () => {
                       className={`node ${node.type} ${editingNode === id ? 'top' : ''}`}
                       id={id}
                       style={position}
+                      onClick={() => {
+                        setNodeInfo(node);
+                        setNodeInfoOpen(true);
+                      }}
                     >
                       {
                         editMode ? (
@@ -387,7 +473,7 @@ const Tree = () => {
                                 <div className="edit-inputs">
                                   <label htmlFor="title">Title:</label>
                                   <input id="title" type="text" defaultValue={node.title} ref={editingNode === id ? inputRef : null} />
-                                  <label htmlFor="relations">Relations (separate by commas):</label>
+                                  <label htmlFor="relations">Dependencies (separate by commas):</label>
                                   <input id="relations" type="text" defaultValue={relList} ref={editingNode === id ? relationsRef : null} />
                                   <label htmlFor="type">Type:</label>
                                   <select id="type" ref={editingNode === id ? selectRef : null} defaultValue={node.type}>
@@ -496,7 +582,7 @@ const Tree = () => {
                                      */
                                     let tempData = d;
                                     tempData.splice(treeLoc, 0, newNode);
-                                    setTreeData(tempData);
+                                    setTreeData(Cleanup(tempData));
                                     setIsNewNode(false);
                                   }} />
                                   <i className="fa fa-ban" onClick={() => {
@@ -564,16 +650,12 @@ const Tree = () => {
                         )
                       }
                     </div>
-                    {
-                      index === treeData.length - 1 && (
-                        <div className="node-height" style={{ height: starterCount * (pixelDiff + 0.5) }}></div>
-                      )
-                    }
                   </div>
                 );
               })
             }
           </div>
+          <div className="node-height" style={{ height: (starterCount + 1) * pixelDiff, minHeight: 500 }}></div>
         </div>
         <div className="footer">
           <p>Copyright &copy; 2022 Foresight Institute, all rights reserved.</p>
