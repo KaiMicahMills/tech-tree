@@ -636,7 +636,7 @@ const Tree = () => {
                                     setTreeData(d);
                                   }} />
                                   {
-                                    !node.relations || !node.relations.length || node.relations[0] === '' && (
+                                    !node.relations || !node.relations.length || node.relations[0] === '' ? (
                                       <i className="fa fa-sort-amount-down" title="Insert Base Node Below" onClick={() => {
                                         setEditingNode(null);
                                         setIsNewNode(true);
@@ -671,7 +671,7 @@ const Tree = () => {
                                         setEditingNode(newNode.title.replace(/\s/g, '-').toLowerCase());
                                         setTreeData(d);
                                       }} />
-                                    )
+                                    ) : null
                                   }
                                   <i className="fa fa-pencil" title="Edit Node" onClick={() => setEditingNode(id)} />
                                   {
