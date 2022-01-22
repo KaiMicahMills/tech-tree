@@ -524,7 +524,7 @@ const Tree = () => {
                             {
                               editingNode === id ? (
                                 <>
-                                  <i className="fa fa-check" onClick={() => {
+                                  <i className="fa fa-check" title="Save" onClick={() => {
                                     /**
                                      * Add modified node to data structure
                                      */
@@ -585,7 +585,7 @@ const Tree = () => {
                                     setTreeData(Cleanup(tempData));
                                     setIsNewNode(false);
                                   }} />
-                                  <i className="fa fa-ban" onClick={() => {
+                                  <i className="fa fa-ban" title="Cancel" onClick={() => {
                                     /**
                                      * If cancelling new node
                                      */
@@ -601,7 +601,7 @@ const Tree = () => {
                                 </>
                               ) : (
                                 <>
-                                  <i className="fa fa-plus" onClick={() => {
+                                  <i className="fa fa-plus" title="Add Child Node" onClick={() => {
                                     setEditingNode(null);
                                     setIsNewNode(true);
                                     /**
@@ -635,10 +635,48 @@ const Tree = () => {
                                     setEditingNode(newNode.title.replace(/\s/g, '-').toLowerCase());
                                     setTreeData(d);
                                   }} />
-                                  <i className="fa fa-pencil" onClick={() => setEditingNode(id)} />
+                                  {
+                                    !node.relations || !node.relations.length || node.relations[0] === '' && (
+                                      <i className="fa fa-sort-amount-down" title="Insert Base Node Below" onClick={() => {
+                                        setEditingNode(null);
+                                        setIsNewNode(true);
+                                        /**
+                                         * Inserting new base node
+                                         * @type {{}}
+                                         */
+                                        let d = treeData;
+                                        let treeLoc = null;
+                                        /**
+                                         * Find current node location, save for later
+                                         */
+                                        d.forEach((n, i) => {
+                                          if (n.title === node.title) {
+                                            treeLoc = i;
+                                          } else if (n.title === `Node ${treeLoc + 1}`) {
+                                            /**
+                                             * If there are unmodified new nodes already,
+                                             * continue creating unique names
+                                             */
+                                            treeLoc++;
+                                          }
+                                        });
+                                        /**
+                                         * Place new node after the current node
+                                         */
+                                        let newNode = NodeTemplate;
+                                        newNode.title = `Node ${treeLoc + 1}`
+                                        newNode.type = 'core-technology';
+                                        newNode.relations = [];
+                                        d.splice(treeLoc + 1, 0, newNode);
+                                        setEditingNode(newNode.title.replace(/\s/g, '-').toLowerCase());
+                                        setTreeData(d);
+                                      }} />
+                                    )
+                                  }
+                                  <i className="fa fa-pencil" title="Edit Node" onClick={() => setEditingNode(id)} />
                                   {
                                     treeData.length > 1 && !editingNode && (
-                                      <i className="fa fa-trash" onClick={() => {
+                                      <i className="fa fa-trash" title="Delete Node" onClick={() => {
                                         /**
                                          * Remove node from data structure
                                          */
