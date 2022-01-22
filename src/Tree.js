@@ -21,8 +21,8 @@ const Tree = () => {
    * @type {{title: string, type: string}}
    */
   const NodeTemplate = {
-    title: '',
-    type: '',
+    title: 'Node',
+    type: 'core-technology',
   }
   /**
    * Inner node page states
@@ -55,7 +55,7 @@ const Tree = () => {
    * Tree data fetched from the original data file,
    * then saved as a state to modify later
    */
-  const [treeData, setTreeData] = useState(Data);
+  const [treeData, setTreeData] = useState(Data.length ? Data : [NodeTemplate]);
   /**
    * Function to clean up relations
    *
@@ -636,13 +636,17 @@ const Tree = () => {
                                     setTreeData(d);
                                   }} />
                                   <i className="fa fa-pencil" onClick={() => setEditingNode(id)} />
-                                  <i className="fa fa-trash" onClick={() => {
-                                    /**
-                                     * Remove node from data structure
-                                     */
-                                    setMadeChanges(true);
-                                    setTreeData(treeData.filter((n) => n.title !== node.title));
-                                  }} />
+                                  {
+                                    treeData.length > 1 && !editingNode && (
+                                      <i className="fa fa-trash" onClick={() => {
+                                        /**
+                                         * Remove node from data structure
+                                         */
+                                        setMadeChanges(true);
+                                        setTreeData(treeData.filter((n) => n.title !== node.title));
+                                      }} />
+                                    )
+                                  }
                                 </>
                               )
                             }
