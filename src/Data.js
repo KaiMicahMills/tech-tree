@@ -21,15 +21,6 @@ const Data = [
     ]
   },
   {
-    "title": "Gene Expression Control",
-    "type": "core-technology",
-    "relations": [
-      "Epigenetics",
-      "Electrodynamics",
-      "Gene Therapy"
-    ]
-  },
-  {
     "title": "Telomere Control",
     "type": "core-technology",
     "relations": [
@@ -71,6 +62,15 @@ const Data = [
     "type": "core-technology",
     "relations": [
       ""
+    ]
+  },
+  {
+    "title": "Gene Expression Control",
+    "type": "core-technology",
+    "relations": [
+      "Epigenetics",
+      "Electrodynamics",
+      "Gene Therapy"
     ]
   },
   {
@@ -218,26 +218,10 @@ const Data = [
     ]
   },
   {
-    "title": "Cybernetic Body",
+    "title": "Brain Machine Interface",
     "type": "core-technology",
     "relations": [
-      "Artificial Muscle",
-      "Artificial Organs"
-    ]
-  },
-  {
-    "title": "Cyborg",
-    "type": "core-technology",
-    "relations": [
-      "Cybernetic Body"
-    ]
-  },
-  {
-    "title": "Android",
-    "type": "longevity-tech",
-    "relations": [
-      "Cyborg",
-      "Cybernetic Brain"
+      ""
     ]
   },
   {
@@ -249,17 +233,24 @@ const Data = [
     ]
   },
   {
-    "title": "Brain Machine Interface",
+    "title": "Head Transplant",
+    "type": "core-technology",
+    "relations": [
+      "Brain Machine Interface"
+    ]
+  },
+  {
+    "title": "Blood Reperfusion",
     "type": "core-technology",
     "relations": [
       ""
     ]
   },
   {
-    "title": "Head Transplant",
+    "title": "Brain Preservation",
     "type": "core-technology",
     "relations": [
-      "Brain Machine Interface"
+      "Blood Reperfusion"
     ]
   },
   {
@@ -275,20 +266,6 @@ const Data = [
     "type": "core-technology",
     "relations": [
       "Mind Uploading"
-    ]
-  },
-  {
-    "title": "Blood Reperfusion",
-    "type": "core-technology",
-    "relations": [
-      ""
-    ]
-  },
-  {
-    "title": "Brain Preservation",
-    "type": "core-technology",
-    "relations": [
-      "Blood Reperfusion"
     ]
   },
   {
@@ -342,18 +319,18 @@ const Data = [
     ]
   },
   {
+    "title": "Frozen Blood",
+    "type": "core-technology",
+    "relations": [
+      ""
+    ]
+  },
+  {
     "title": "Blood Donations Solved",
     "type": "general-improvement",
     "relations": [
       "Lab Grown Blood",
       "Frozen Blood"
-    ]
-  },
-  {
-    "title": "Frozen Blood",
-    "type": "core-technology",
-    "relations": [
-      ""
     ]
   },
   {
@@ -396,6 +373,29 @@ const Data = [
     "type": "core-technology",
     "relations": [
       "ATP to Electricity"
+    ]
+  },
+  {
+    "title": "Cybernetic Body",
+    "type": "core-technology",
+    "relations": [
+      "Artificial Muscle",
+      "Artificial Organs"
+    ]
+  },
+  {
+    "title": "Cyborg",
+    "type": "core-technology",
+    "relations": [
+      "Cybernetic Body"
+    ]
+  },
+  {
+    "title": "Android",
+    "type": "longevity-tech",
+    "relations": [
+      "Cyborg",
+      "Cybernetic Brain"
     ]
   },
   {
