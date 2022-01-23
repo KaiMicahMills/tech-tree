@@ -443,6 +443,7 @@ svg {
     height: 60%;
     width: 60%;
     background-color: $tree-background;
+    border: 2px solid $tree-border-color;
     box-sizing: border-box;
     padding: 75px;
     position: relative;
