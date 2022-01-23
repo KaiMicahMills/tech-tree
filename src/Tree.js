@@ -1,7 +1,8 @@
 import './tech-tree.scss';
 import Data from "./Data";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Base64 } from "js-base64";
+import Config from "./Config";
 
 /**
  * Tech Tree
@@ -22,8 +23,20 @@ const Tree = () => {
    */
   const NodeTemplate = {
     title: 'Node',
-    type: 'core-technology',
+    type: Config.key[0].title.replace(' ', '-').toLowerCase(),
   }
+  /**
+   * Key colors from config for
+   * dynamic node coloring
+   */
+  const [keyColors, setKeyColors] = useState({});
+  useEffect(() => {
+    let colors = {};
+    Config.key.forEach((k) => {
+      colors[k.title.replace(' ', '-').toLowerCase()] = k.color;
+    });
+    setKeyColors(colors);
+  }, []);
   /**
    * Inner node page states
    */
@@ -166,12 +179,12 @@ const Tree = () => {
      */
     octokit
       .createPullRequest({
-        owner: "KaiMicahMills",
-        repo: "tech-tree",
+        owner: Config.github_repo_owner,
+        repo: Config.github_repo_name,
         title: `Tech Tree Changes from ${submitName}`,
         body: `Submitted from ${submitEmail}`,
-        base: "staging",
-        head: `tree-change/${submitName.replace(' ', '-')}-${new Date().getTime()}`,
+        base: Config.github_base_branch,
+        head: `tree-change/${submitName.replace(' ', '-').toLowerCase()}-${new Date().getTime()}`,
         changes: [
           {
             files: {
@@ -209,7 +222,7 @@ const Tree = () => {
       {
         nodeInfoOpen && nodeInfo && !editMode && (
           <div className="overlay success">
-            <div className="node-info">
+            <div className="node-info" style={{ backgroundColor: Config.tree_background_color }}>
               <span onClick={() => setNodeInfoOpen(false)}>
                 <i className="fa fa-long-arrow-alt-left"></i>
                 Back
@@ -223,46 +236,33 @@ const Tree = () => {
         )
       }
       <div className={`tree ${editMode ? 'editing' : 'viewing'}`}>
-        <div className="header">
+        <div
+          className="header"
+          style={{
+            background: 'url(' + Config.cover_image_url + ') no-repeat center center',
+            backgroundSize: 'cover',
+          }}
+        >
           <div className="header-block">
             <img src="/foresight.png" alt="Foresight Institute" />
             <h1>Longevity Tech Tree</h1>
-            <h3>Prototype v0.1 (Jan 22, 2022)</h3>
-            <br />
-            <h4>
-              <a
-                href="https://fsnone-bb4c.kxcdn.com/wp-content/uploads/2021/10/Longevity-Technology.pdf"
-                target="_blank"
-                rel="noreferrer"
-              >
-                View the full document
-              </a>
-            </h4>
-            <h4>
-              <a
-                href="https://app.markup.io/invite/accept/t5KhhVoe"
-                target="_blank"
-                rel="noreferrer"
-              >
-                Provide feedback
-              </a>
-            </h4>
+            <h3>Prototype v0.1</h3>
           </div>
           <div className="header-block">
             <h4>Key:</h4>
             <br />
-            <div className="key blue">
-              Core Technology
-            </div>
-            <div className="key purple">
-              Longevity Tech
-            </div>
-            <div className="key yellow">
-              General Improvement
-            </div>
+            {
+              Config.key.map((k) => {
+                return (
+                  <div className="key" style={{ backgroundColor: k.color }} key={k.title}>
+                    {k.title}
+                  </div>
+                )
+              })
+            }
           </div>
         </div>
-        <div className="sections">
+        <div className="sections" style={{ backgroundColor: Config.tree_background_color }}>
           <div className="edit-cover">
             {
               editMode && madeChanges && (
@@ -459,7 +459,11 @@ const Tree = () => {
                     <div
                       className={`node ${node.type} ${editingNode === id ? 'top' : ''}`}
                       id={id}
-                      style={position}
+                      style={{
+                        top: position.top,
+                        left: position.left,
+                        backgroundColor: keyColors[node.type],
+                      }}
                       onClick={() => {
                         setNodeInfo(node);
                         setNodeInfoOpen(true);
@@ -477,9 +481,10 @@ const Tree = () => {
                                   <input id="relations" type="text" defaultValue={relList} ref={editingNode === id ? relationsRef : null} />
                                   <label htmlFor="type">Type:</label>
                                   <select id="type" ref={editingNode === id ? selectRef : null} defaultValue={node.type}>
-                                    <option value="core-technology">Core Technology</option>
-                                    <option value="longevity-tech">Longevity Tech</option>
-                                    <option value="general-improvement">General Improvement</option>
+                                    {
+                                      Config.key.map((k) =>
+                                        <option value={k.title.replace(' ', '-').toLowerCase()} key={k.title}>{k.title}</option>)
+                                    }
                                   </select>
                                 </div>
                               ) : (
@@ -629,7 +634,7 @@ const Tree = () => {
                                      */
                                     let newNode = NodeTemplate;
                                     newNode.title = `Node ${treeLoc + 1}`
-                                    newNode.type = 'core-technology';
+                                    newNode.type = NodeTemplate.type;
                                     newNode.relations = [`${node.title}`];
                                     d.splice(treeLoc + 1, 0, newNode);
                                     setEditingNode(newNode.title.replace(/\s/g, '-').toLowerCase());
@@ -638,6 +643,9 @@ const Tree = () => {
                                   {
                                     !node.relations || !node.relations.length || node.relations[0] === '' ? (
                                       <i className="fa fa-sort-amount-down" title="Insert Base Node Below" onClick={() => {
+                                        /**
+                                         * TODO: fix duplicate code fragment
+                                         */
                                         setEditingNode(null);
                                         setIsNewNode(true);
                                         /**
@@ -665,7 +673,7 @@ const Tree = () => {
                                          */
                                         let newNode = NodeTemplate;
                                         newNode.title = `Node ${treeLoc + 1}`
-                                        newNode.type = 'core-technology';
+                                        newNode.type = NodeTemplate.type;
                                         newNode.relations = [];
                                         d.splice(treeLoc + 1, 0, newNode);
                                         setEditingNode(newNode.title.replace(/\s/g, '-').toLowerCase());
@@ -675,7 +683,7 @@ const Tree = () => {
                                   }
                                   <i className="fa fa-pencil" title="Edit Node" onClick={() => setEditingNode(id)} />
                                   {
-                                    treeData.length > 1 && !editingNode && (
+                                    treeData.length > 1 && (
                                       <i className="fa fa-trash" title="Delete Node" onClick={() => {
                                         /**
                                          * Remove node from data structure
