@@ -245,8 +245,8 @@ const Tree = () => {
         >
           <div className="header-block">
             <img src="/foresight.png" alt="Foresight Institute" />
-            <h1>Longevity Tech Tree</h1>
-            <h3>Prototype v0.1</h3>
+            <h1>{Config.title}</h1>
+            <h3>{Config.subtitle}</h3>
           </div>
           <div className="header-block">
             <h4>Key:</h4>
