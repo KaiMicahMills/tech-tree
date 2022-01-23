@@ -8,16 +8,7 @@
   Colors
  */
 
-// Key colors
-$tree-key-blue: #a0c4ff;
-$tree-key-purple: #ffc6ff;
-$tree-key-yellow: #fdffb6;
-$tree-key-green: #caffbf;
-
-// Extra colors
-$tree-border-color: #FFF;
-
-// Background
+$tree-border-color: #fff;
 $tree-background: #1d233c;
 
 /**
@@ -57,14 +48,12 @@ a {
 
 .header {
   width: 100%;
-  height: 400px;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
   padding: 0 50px;
-  background: url(https://fsnone-bb4c.kxcdn.com/wp-content/uploads/2021/10/Biotech-program-image.jpg) no-repeat center center;
-  background-size: cover;
   color: #FFF;
 
   h4:not(:last-of-type) {
@@ -73,11 +62,12 @@ a {
 
   .header-block {
     background-color: rgba(0, 0, 0, 0.8);
-    height: 300px;
+    height: auto;
     display: flex;
     justify-content: center;
     flex-direction: column;
     padding: 0 25px;
+    margin: 75px 0;
 
     &:not(:last-of-type) {
       margin-right: 25px;
@@ -85,6 +75,7 @@ a {
   }
 
   .key {
+    background-color: #9FC4FF;
     border: 2px solid $tree-border-color;
     display: flex;
     align-items: center;
@@ -100,22 +91,6 @@ a {
 
     &:not(:last-of-type) {
       margin-bottom: 15px;
-    }
-
-    &.blue {
-      background-color: $tree-key-blue;
-    }
-
-    &.purple {
-      background-color: $tree-key-purple;
-    }
-
-    &.yellow {
-      background-color: $tree-key-yellow;
-    }
-
-    &.green {
-      background-color: $tree-key-green;
     }
   }
 
@@ -283,6 +258,7 @@ section {
     transition: 0.2s;
     z-index: 1;
     margin-right: 100px;
+    background-color: #9EC4FF;
 
     &.top {
       z-index: 999;
@@ -352,22 +328,6 @@ section {
       display: flex;
       align-items: center;
       justify-content: center;
-    }
-
-    &.core-technology {
-      background-color: $tree-key-blue;
-    }
-
-    &.longevity-tech {
-      background-color: $tree-key-purple;
-    }
-
-    &.general-improvement {
-      background-color: $tree-key-yellow;
-    }
-
-    &.nutrition-inputs {
-      background-color: $tree-key-green;
     }
 
     &:hover {
