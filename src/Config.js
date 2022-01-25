@@ -8,15 +8,15 @@ const Config = {
   subtitle: 'Prototype',
   key: [
     {
-      title: 'Example Type 1',
+      title: 'Example One',
       color: '#9FC4FF',
     },
     {
-      title: 'Example Type 2',
+      title: 'Example Two',
       color: '#FFC6FE',
     },
     {
-      title: 'Example Type 3',
+      title: 'Example Three',
       color: '#FDFFB6',
     }
   ],
