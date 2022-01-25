@@ -1,6 +1,6 @@
 {
-  "short_name": "Longevity Tech Tree",
-  "name": "Longevity Tech Tree - Foresight Institute",
+  "short_name": "Tech Tree",
+  "name": "Tech Tree",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
