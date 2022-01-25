@@ -23,6 +23,7 @@ const Config = {
   github_repo_owner: 'KaiMicahMills',
   github_repo_name: 'tech-tree',
   github_base_branch: 'staging',
+  github_token: process.env.REACT_APP_TOKEN,
   cover_image_url: 'https://fsnone-bb4c.kxcdn.com/wp-content/uploads/2021/10/Biotech-program-image.jpg',
   tree_background_color: '#1D243C'
 }
