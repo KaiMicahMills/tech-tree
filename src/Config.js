@@ -4,24 +4,24 @@
  */
 
 const Config = {
-  title: 'Tech Tree',
+  title: 'Longevity Tech Tree',
   subtitle: 'Prototype',
   key: [
     {
-      title: 'Example Type 1',
+      title: 'Core Technology',
       color: '#9FC4FF',
     },
     {
-      title: 'Example Type 2',
+      title: 'Longevity Tech',
       color: '#FFC6FE',
     },
     {
-      title: 'Example Type 3',
+      title: 'General Improvement',
       color: '#FDFFB6',
     }
   ],
-  github_repo_owner: 'KaiMicahMills',
-  github_repo_name: 'tech-tree',
+  github_repo_owner: 'Foresight-Institute',
+  github_repo_name: 'biotech-health-extension-tree',
   github_base_branch: 'staging',
   github_token: process.env.REACT_APP_TOKEN,
   cover_image_url: 'https://fsnone-bb4c.kxcdn.com/wp-content/uploads/2021/10/Biotech-program-image.jpg',
