@@ -9,5 +9,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="biotech-health-extension-tree" />
+    <orderEntry type="module" module-name="intelligent-cooperation-tree" />
+    <orderEntry type="module" module-name="space-tree" />
+    <orderEntry type="module" module-name="neurotech-tree" />
+    <orderEntry type="module" module-name="nanotech-tree" />
   </component>
 </module>

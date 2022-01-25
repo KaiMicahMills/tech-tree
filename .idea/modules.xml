@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/longevity-tech-tree.iml" filepath="$PROJECT_DIR$/.idea/longevity-tech-tree.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../biotech-health-extension-tree/.idea/biotech-health-extension-tree.iml" filepath="$PROJECT_DIR$/../biotech-health-extension-tree/.idea/biotech-health-extension-tree.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../intelligent-cooperation-tree/.idea/intelligent-cooperation-tree.iml" filepath="$PROJECT_DIR$/../intelligent-cooperation-tree/.idea/intelligent-cooperation-tree.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../nanotech-tree/.idea/nanotech-tree.iml" filepath="$PROJECT_DIR$/../nanotech-tree/.idea/nanotech-tree.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../neurotech-tree/.idea/neurotech-tree.iml" filepath="$PROJECT_DIR$/../neurotech-tree/.idea/neurotech-tree.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../space-tree/.idea/space-tree.iml" filepath="$PROJECT_DIR$/../space-tree/.idea/space-tree.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/tech-tree.iml" filepath="$PROJECT_DIR$/.idea/tech-tree.iml" />
     </modules>
   </component>
 </project>
