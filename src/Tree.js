@@ -166,10 +166,10 @@ const Tree = () => {
     const MyOctokit = Octokit.plugin(createPullRequest);
     /**
      * Authenticate with Github using access token
-     * stored in Vercel
+     * Needs to be a personal access token with repo permissions
      * @type {string}
      */
-    const TOKEN = process.env.REACT_APP_TOKEN;
+    const TOKEN = Config.github_token;
     const octokit = new MyOctokit({
       auth: TOKEN,
     });
