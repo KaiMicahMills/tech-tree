@@ -4,19 +4,19 @@
  */
 
 const Config = {
-  title: 'Longevity Tech Tree',
-  subtitle: 'Prototype v0.2',
+  title: 'Tech Tree',
+  subtitle: 'Prototype',
   key: [
     {
-      title: 'Core Technology',
+      title: 'Example Type 1',
       color: '#9FC4FF',
     },
     {
-      title: 'Longevity Tech',
+      title: 'Example Type 2',
       color: '#FFC6FE',
     },
     {
-      title: 'General Improvement',
+      title: 'Example Type 3',
       color: '#FDFFB6',
     }
   ],
