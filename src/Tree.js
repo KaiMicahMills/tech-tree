@@ -213,7 +213,21 @@ const Tree = () => {
         alert(err);
     });
   };
-
+  /**
+   * Restore saved data if it exists
+   */
+  useEffect(() => {
+    if (localStorage.getItem('data')) {
+      setTreeData(JSON.parse(localStorage.getItem('data')));
+      setMadeChanges(true);
+    }
+  }, []);
+  /**
+   * Save progress locally
+   */
+  useEffect(() => {
+    if (treeData && madeChanges) localStorage.setItem('data', JSON.stringify(treeData));
+  }, [treeData]);
   /**
    * Render tree
    */
@@ -279,6 +293,13 @@ const Tree = () => {
                 </div>
               )
             }
+            <span className="reset" onClick={() => {
+              /**
+               * Reset tree back to default data
+               */
+              localStorage.removeItem('data');
+              setTreeData(Data.length ? Data : [NodeTemplate]);
+            }}>Reset <i className="fa fa-undo-alt"></i></span>
             <div className="edit" onClick={() =>  {
               setEditMode(!editMode);
               setNodeInfoOpen(false);

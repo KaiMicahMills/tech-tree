@@ -186,6 +186,22 @@ section {
   }
 }
 
+.reset {
+  position: absolute;
+  top: -90px;
+  color: #FFF;
+  cursor: pointer;
+
+  i {
+    font-size: 14px;
+  }
+
+  &:hover {
+    cursor: pointer;
+    color: #EEE;
+  }
+}
+
 .submit-cover {
   display: flex;
   flex-direction: column;
