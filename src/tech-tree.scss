@@ -276,12 +276,12 @@ section {
     margin-right: 100px;
     background-color: #9EC4FF;
 
-    &.top {
-      z-index: 999;
+    &.highlight {
+      border-color: #FDFFB6;
     }
 
-    input {
-      margin-bottom: 10px;
+    &.top {
+      z-index: 999;
     }
 
     input, select {
@@ -289,9 +289,20 @@ section {
       padding: 5px 10px;
       font-family: 'Lato', sans-serif;
 
+      &:not(:last-child) {
+        margin-bottom: 10px;
+      }
+
       &:focus {
         outline: 0;
       }
+    }
+
+    .highlight-icon {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      color: #FDFFB6;
     }
 
     .edit-icons {
