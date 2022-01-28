@@ -24,6 +24,7 @@ const Tree = () => {
   const NodeTemplate = {
     title: 'Node',
     type: Config.key[0].title.replace(' ', '-').toLowerCase(),
+    highlight: 'false',
   }
   /**
    * Key colors from config for
@@ -64,6 +65,7 @@ const Tree = () => {
   const inputRef = useRef();
   const relationsRef = useRef();
   const selectRef = useRef();
+  const highlightRef = useRef();
   /**
    * Tree data fetched from the original data file,
    * then saved as a state to modify later
@@ -213,7 +215,26 @@ const Tree = () => {
         alert(err);
     });
   };
-
+  /**
+   * Restore saved data if it exists
+   */
+  useEffect(() => {
+    if (localStorage.getItem('data')) {
+      setTreeData(JSON.parse(localStorage.getItem('data')));
+      /**
+       * If the saved tree & default data tree are different,
+       * the user has previously made changes
+       */
+      if (JSON.stringify(treeData) !== localStorage.getItem('data')) setMadeChanges(true);
+    }
+    // eslint-disable-next-line
+  }, []);
+  /**
+   * Save progress locally
+   */
+  useEffect(() => {
+    if (treeData && madeChanges) localStorage.setItem('data', JSON.stringify(treeData));
+  }, [treeData, madeChanges]);
   /**
    * Render tree
    */
@@ -279,7 +300,17 @@ const Tree = () => {
                 </div>
               )
             }
+            <span className="reset" onClick={() => {
+              /**
+               * Reset tree back to default data
+               */
+              localStorage.removeItem('data');
+              setTreeData(Data.length ? Data : [NodeTemplate]);
+            }}>Reset <i className="fa fa-undo-alt"></i></span>
             <div className="edit" onClick={() =>  {
+              /**
+               * Toggle edit/view mode
+               */
               setEditMode(!editMode);
               setNodeInfoOpen(false);
             }}>
@@ -457,7 +488,7 @@ const Tree = () => {
                       ) : null
                     }
                     <div
-                      className={`node ${node.type} ${editingNode === id ? 'top' : ''}`}
+                      className={`node ${node.type} ${editingNode === id ? 'top' : ''} ${node.highlight === 'true' ? 'highlight' : ''}`}
                       id={id}
                       style={{
                         top: position.top,
@@ -470,6 +501,11 @@ const Tree = () => {
                       }}
                     >
                       {
+                        node.highlight === 'true' && (
+                          <i class="fa fa-star highlight-icon"></i>
+                        )
+                      }
+                      {
                         editMode ? (
                           <>
                             {
@@ -479,6 +515,11 @@ const Tree = () => {
                                   <input id="title" type="text" defaultValue={node.title} ref={editingNode === id ? inputRef : null} />
                                   <label htmlFor="relations">Dependencies (separate by commas):</label>
                                   <input id="relations" type="text" defaultValue={relList} ref={editingNode === id ? relationsRef : null} />
+                                  <label htmlFor="highlight">Highlight:</label>
+                                  <select id="highlight" ref={editingNode === id ? highlightRef : null} defaultValue={node.highlight}>
+                                    <option value="false">False</option>
+                                    <option value="true">True</option>
+                                  </select>
                                   <label htmlFor="type">Type:</label>
                                   <select id="type" ref={editingNode === id ? selectRef : null} defaultValue={node.type}>
                                     {
@@ -581,6 +622,7 @@ const Tree = () => {
                                     let newNode = NodeTemplate;
                                     newNode.title = inputRef.current.value.trim();
                                     newNode.type = selectRef.current.value.replace(' ', '-').toLowerCase();
+                                    newNode.highlight = highlightRef.current.value;
                                     newNode.relations = relationsRef.current.value.split(',').map((r) => r.trim());
                                     /**
                                      * Add node to correct location,
