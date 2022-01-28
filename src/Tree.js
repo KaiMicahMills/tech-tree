@@ -227,7 +227,7 @@ const Tree = () => {
    */
   useEffect(() => {
     if (treeData && madeChanges) localStorage.setItem('data', JSON.stringify(treeData));
-  }, [treeData]);
+  }, [treeData, madeChanges]);
   /**
    * Render tree
    */
@@ -301,6 +301,9 @@ const Tree = () => {
               setTreeData(Data.length ? Data : [NodeTemplate]);
             }}>Reset <i className="fa fa-undo-alt"></i></span>
             <div className="edit" onClick={() =>  {
+              /**
+               * Toggle edit/view mode
+               */
               setEditMode(!editMode);
               setNodeInfoOpen(false);
             }}>
