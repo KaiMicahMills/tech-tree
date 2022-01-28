@@ -219,7 +219,11 @@ const Tree = () => {
   useEffect(() => {
     if (localStorage.getItem('data')) {
       setTreeData(JSON.parse(localStorage.getItem('data')));
-      setMadeChanges(true);
+      /**
+       * If the saved tree & default data tree are different,
+       * the user has previously made changes
+       */
+      if (JSON.stringify(treeData) !== localStorage.getItem('data')) setMadeChanges(true);
     }
   }, []);
   /**
