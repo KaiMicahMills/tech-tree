@@ -259,9 +259,41 @@ section {
 .nodes {
   position: relative;
   top: 0;
-  left: 75px;
+  left: 0;
   padding-bottom: 65px;
   display: inline-block;
+  margin-left: 75px;
+  width: 100%;
+
+  .axis-block {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    transform: translateX(-75px);
+
+    &.axis-x {
+      height: 150vh;
+
+      p {
+        margin-top: 10px;
+      }
+    }
+
+    &.axis-y {
+      min-width: calc(100vw + 75px);
+      justify-content: flex-start;
+
+      p {
+        transform: rotate(-90deg);
+        margin-left: 45px;
+      }
+    }
+
+    p {
+      color: #FFF;
+      text-align: center;
+    }
+  }
 
   .node {
     text-align: center;

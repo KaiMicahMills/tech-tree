@@ -64,8 +64,10 @@ const Tree = () => {
    */
   const inputRef = useRef();
   const relationsRef = useRef();
-  const selectRef = useRef();
+  const typeRef = useRef();
   const highlightRef = useRef();
+  const xAxisRef = useRef();
+  const yAxisRef = useRef();
   /**
    * Tree data fetched from the original data file,
    * then saved as a state to modify later
@@ -80,6 +82,7 @@ const Tree = () => {
    * that it appears after each of its relations.
    *
    * TODO: this is temporary & slow, shouldn't need it
+   * TODO: move nodes to correct axis if necessary
    */
   const Cleanup = (tree) => {
     /**
@@ -145,6 +148,7 @@ const Tree = () => {
    * @type {number}
    */
   const pixelDiff = 100;
+  const fontWidth = 10;
   /**
    * Submission user details
    * TODO: refs maybe? state change is a bit laggy when typing (bc re-rendering tree)
@@ -156,6 +160,18 @@ const Tree = () => {
    */
   const [loading, setLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  /**
+   * Axis builder
+   */
+  let xAxisLoc = 0;
+  let yAxisLoc = 0;
+  /**
+   * Node height & caret height for dynamic connection positions
+   * TODO: Get from refs of respective divs instead of hardcode
+   * @type {number}
+   */
+  const caretHeight = 12;
+  const nodeHeight = 47;
   /**
    * Submit changes to Github
    * @returns {Promise<void>}
@@ -335,7 +351,6 @@ const Tree = () => {
                  * Default positioning
                  * @type {number}
                  */
-                const fontWidth = 10;
                 let t = pixelDiff * multiplier;
                 let l = pixelDiff * multiplier;
                 /**
@@ -401,19 +416,22 @@ const Tree = () => {
                  * @type {*[]}
                  */
                 const newLocRef = locRef;
-                newLocRef.push({
-                  id: id,
-                  top: position.top,
-                  left: position.left,
-                });
+                if (Config.axis_enabled) {
+                  newLocRef.push({
+                    id: id,
+                    top: position.top,
+                    left: position.left,
+                    axis_x: node.axis_x,
+                    axis_y: node.axis_y,
+                  });
+                } else {
+                  newLocRef.push({
+                    id: id,
+                    top: position.top,
+                    left: position.left,
+                  });
+                }
                 locRef = newLocRef;
-                /**
-                 * Node height & caret height for dynamic connection positions
-                 * TODO: Get from refs of respective divs instead of hardcode
-                 * @type {number}
-                 */
-                const caretHeight = 12;
-                const nodeHeight = 47;
                 /**
                  * Reference for most recent dynamic connection `top` value
                  * @type {number}
@@ -521,12 +539,32 @@ const Tree = () => {
                                     <option value="true">True</option>
                                   </select>
                                   <label htmlFor="type">Type:</label>
-                                  <select id="type" ref={editingNode === id ? selectRef : null} defaultValue={node.type}>
+                                  <select id="type" ref={editingNode === id ? typeRef : null} defaultValue={node.type}>
                                     {
                                       Config.key.map((k) =>
                                         <option value={k.title.replace(' ', '-').toLowerCase()} key={k.title}>{k.title}</option>)
                                     }
                                   </select>
+                                  {
+                                    Config.axis_enabled && (
+                                      <>
+                                        <label htmlFor="axis-x">X Axis:</label>
+                                        <select id="axis-x" ref={editingNode === id ? xAxisRef : null} defaultValue={node?.axis_x}>
+                                          {
+                                            Config.axis_x.map((axis) =>
+                                              <option value={axis.replace(' ', '-').toLowerCase()} key={axis}>{axis}</option>)
+                                          }
+                                        </select>
+                                        <label htmlFor="axis-y">Y Axis:</label>
+                                        <select id="axis-y" ref={editingNode === id ? yAxisRef : null} defaultValue={node?.axis_y}>
+                                          {
+                                            Config.axis_y.map((axis) =>
+                                              <option value={axis.replace(' ', '-').toLowerCase()} key={axis}>{axis}</option>)
+                                          }
+                                        </select>
+                                      </>
+                                    )
+                                  }
                                 </div>
                               ) : (
                                 <>{node.title}</>
@@ -600,7 +638,7 @@ const Tree = () => {
                                              * There's a match, let's replace it
                                              */
                                             d[i].relations.splice(ii, 1);
-                                            d[i].relations.splice(ii, 0, inputRef.current.value);
+                                            d[i].relations.splice(ii, 0, inputRef.current?.value);
                                           }
                                         })
                                       }
@@ -620,10 +658,14 @@ const Tree = () => {
                                      * Build new node
                                      */
                                     let newNode = NodeTemplate;
-                                    newNode.title = inputRef.current.value.trim();
-                                    newNode.type = selectRef.current.value.replace(' ', '-').toLowerCase();
-                                    newNode.highlight = highlightRef.current.value;
-                                    newNode.relations = relationsRef.current.value.split(',').map((r) => r.trim());
+                                    newNode.title = inputRef.current?.value.trim();
+                                    newNode.type = typeRef.current?.value.replace(' ', '-').toLowerCase();
+                                    newNode.highlight = highlightRef.current?.value;
+                                    if (Config.axis_enabled) {
+                                      newNode.axis_x = xAxisRef.current?.value;
+                                      newNode.axis_y = yAxisRef.current?.value;
+                                    }
+                                    newNode.relations = relationsRef.current?.value.split(',').map((r) => r.trim());
                                     /**
                                      * Add node to correct location,
                                      */
@@ -678,6 +720,10 @@ const Tree = () => {
                                     newNode.title = `Node ${treeLoc + 1}`
                                     newNode.type = NodeTemplate.type;
                                     newNode.relations = [`${node.title}`];
+                                    if (Config.axis_enabled) {
+                                      newNode.axis_x = node.axis_x;
+                                      newNode.axis_y = node.axis_y;
+                                    }
                                     d.splice(treeLoc + 1, 0, newNode);
                                     setEditingNode(newNode.title.replace(/\s/g, '-').toLowerCase());
                                     setTreeData(d);
@@ -745,6 +791,118 @@ const Tree = () => {
                   </div>
                 );
               })
+            }
+            {
+              Config.axis_enabled && (
+                <>
+                  {
+                    Config.axis_y.map((axis, i) => {
+                      /**
+                       * Find location of last node with this axis selected
+                       */
+                      let lastNode = null;
+                      treeData.forEach((node) => {
+                        if (node?.axis_y === axis.replace(/\s/g, '-').toLowerCase()) lastNode = node;
+                      })
+                      let bottom = 0;
+                      let left = 0;
+                      const prevAxis = yAxisLoc;
+                      if (lastNode) {
+                        /**
+                         * Set the bottom point of this axis block
+                         */
+                        locRef.forEach((loc) => {
+                          if (loc.axis_y === axis.replace(/\s/g, '-').toLowerCase()) {
+                            if (loc.left > left) {
+                              left = loc.left + ((loc.id.length * fontWidth) + pixelDiff);
+                            }
+                            bottom = loc.top + nodeHeight;
+                            /**
+                             * Save location of the bottom of this axis block
+                             * @type {number}
+                             */
+                            yAxisLoc = bottom + 37.5;
+                          }
+                        })
+                      } else {
+                        /**
+                         * If no node is found in the data, hide this axis
+                         */
+                        return null;
+                      }
+                      /**
+                       * Display axis with slightly different background color than previous one
+                       */
+                      return (
+                        <div
+                          className="axis-block axis-y"
+                          style={{
+                            backgroundColor: `rgba(255, 255, 255, ${(i + 1) * 0.03})`,
+                            top: prevAxis,
+                            left: 0,
+                            height: bottom - (prevAxis - 37.5),
+                          }}
+                          key={axis}
+                        >
+                          <p>{axis}</p>
+                        </div>
+                      )
+                    })
+                  }
+                  {
+                    Config.axis_x.map((axis, i) => {
+                      /**
+                       * Find location of last node with this axis selected
+                       */
+                      let lastNode = null;
+                      treeData.forEach((node) => {
+                        if (node?.axis_x === axis.replace(/\s/g, '-').toLowerCase()) lastNode = node;
+                      })
+                      let right = 0;
+                      let top = 0;
+                      let prevAxis = xAxisLoc;
+                      if (lastNode) {
+                        /**
+                         * Set the bottom point of this axis block
+                         */
+                        locRef.forEach((loc) => {
+                          if (loc.axis_x === axis.replace(/\s/g, '-').toLowerCase()) {
+                            if (loc.top > top) top = loc.top;
+                            right = loc.left + ((loc.id.length * fontWidth) + pixelDiff);
+                            /**
+                             * Save location of the right of this axis block
+                             * @type {number}
+                             */
+                            xAxisLoc = right + 37.5;
+                          }
+                        })
+                      } else {
+                        /**
+                         * If no node is found in the data, hide this axis
+                         */
+                        return null;
+                      }
+                      /**
+                       * Display axis with slightly different background color than previous one
+                       */
+                      return (
+                        <div
+                          className="axis-block axis-x"
+                          style={{
+                            backgroundColor: `rgba(255, 255, 255, ${(i + 1) * 0.03})`,
+                            top: 0,
+                            left: prevAxis,
+                            width: right - (prevAxis - 37.5),
+                          }}
+                          key={axis}
+                        >
+                          <p>{axis}</p>
+                        </div>
+                      )
+                    })
+                  }
+                </>
+              )
             }
           </div>
           <div className="node-height" style={{ height: (starterCount + 1) * pixelDiff, minHeight: 500 }}></div>
