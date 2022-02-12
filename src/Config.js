@@ -20,7 +20,7 @@ const Config = {
       color: '#FDFFB6',
     }
   ],
-  axis_enabled: true,
+  axis_enabled: false,
   axis_x: ['Example One', 'Example Two', 'Example Three'],
   axis_y: ['Example A', 'Example B', 'Example C'],
   github_repo_owner: 'KaiMicahMills',

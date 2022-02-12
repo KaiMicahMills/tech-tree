@@ -813,15 +813,15 @@ const Tree = () => {
                          */
                         locRef.forEach((loc) => {
                           if (loc.axis_y === axis.replace(/\s/g, '-').toLowerCase()) {
-                            if (loc.left > left) {
-                              left = loc.left + ((loc.id.length * fontWidth) + pixelDiff);
+                            if (loc.left > left) left = loc.left + ((loc.id.length * fontWidth) + pixelDiff);
+                            if ((loc.top + nodeHeight) > bottom) {
+                              bottom = loc.top + nodeHeight;
+                              /**
+                               * Save location of the bottom of this axis block
+                               * @type {number}
+                               */
+                              yAxisLoc = bottom + 37.5;
                             }
-                            bottom = loc.top + nodeHeight;
-                            /**
-                             * Save location of the bottom of this axis block
-                             * @type {number}
-                             */
-                            yAxisLoc = bottom + 37.5;
                           }
                         })
                       } else {
@@ -868,12 +868,14 @@ const Tree = () => {
                         locRef.forEach((loc) => {
                           if (loc.axis_x === axis.replace(/\s/g, '-').toLowerCase()) {
                             if (loc.top > top) top = loc.top;
-                            right = loc.left + ((loc.id.length * fontWidth) + pixelDiff);
-                            /**
-                             * Save location of the right of this axis block
-                             * @type {number}
-                             */
-                            xAxisLoc = right + 37.5;
+                            if (loc.left + ((loc.id.length * fontWidth) + pixelDiff) > right) {
+                              right = loc.left + ((loc.id.length * fontWidth) + pixelDiff);
+                              /**
+                               * Save location of the right of this axis block
+                               * @type {number}
+                               */
+                              xAxisLoc = right + 37.5;
+                            }
                           }
                         })
                       } else {
