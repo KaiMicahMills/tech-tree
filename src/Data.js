@@ -2,6 +2,9 @@ const Data = [
   {
     "title": "Epigenetics",
     "type": "core-technology",
+    "highlight": "false",
+    "axis_x": "molecule-scale",
+    "axis_y": "reprogramming",
     "relations": [
       ""
     ]
@@ -76,6 +79,9 @@ const Data = [
   {
     "title": "Circadian Rhythm Control",
     "type": "core-technology",
+    "highlight": "false",
+    "axis_x": "molecule-scale",
+    "axis_y": "replace-bio",
     "relations": [
       ""
     ]
@@ -256,6 +262,9 @@ const Data = [
   {
     "title": "Mind Uploading",
     "type": "core-technology",
+    "highlight": "false",
+    "axis_x": "cell-scale",
+    "axis_y": "reprogramming",
     "relations": [
       "Brain Machine Interface",
       "Brain Preservation"
@@ -264,6 +273,9 @@ const Data = [
   {
     "title": "Cybernetic Brain",
     "type": "core-technology",
+    "highlight": "false",
+    "axis_x": "cell-scale",
+    "axis_y": "reprogramming",
     "relations": [
       "Mind Uploading"
     ]
@@ -278,6 +290,9 @@ const Data = [
   {
     "title": "Body Replacement",
     "type": "longevity-tech",
+    "highlight": "false",
+    "axis_x": "tissue",
+    "axis_y": "reprogramming",
     "relations": [
       "Brain Transplant",
       "Head Transplant"
@@ -286,6 +301,9 @@ const Data = [
   {
     "title": "Reactive Oxygen Species",
     "type": "core-technology",
+    "highlight": "false",
+    "axis_x": "molecule-scale",
+    "axis_y": "replace-bio",
     "relations": [
       ""
     ]
@@ -307,6 +325,9 @@ const Data = [
   {
     "title": "Stem Cell Therapy",
     "type": "core-technology",
+    "highlight": "false",
+    "axis_x": "molecule-scale",
+    "axis_y": "replace-bio",
     "relations": [
       ""
     ]
@@ -314,6 +335,9 @@ const Data = [
   {
     "title": "Lab Grown Blood",
     "type": "core-technology",
+    "highlight": "false",
+    "axis_x": "molecule-scale",
+    "axis_y": "replace-synthetic",
     "relations": [
       ""
     ]
@@ -378,6 +402,9 @@ const Data = [
   {
     "title": "Cybernetic Body",
     "type": "core-technology",
+    "highlight": "false",
+    "axis_x": "molecule-scale",
+    "axis_y": "replace-synthetic",
     "relations": [
       "Artificial Muscle",
       "Artificial Organs"
@@ -408,6 +435,9 @@ const Data = [
   {
     "title": "Advanced Glycation Endproducts",
     "type": "core-technology",
+    "highlight": "false",
+    "axis_x": "molecule-scale",
+    "axis_y": "recycle",
     "relations": [
       ""
     ]
