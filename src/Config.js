@@ -22,7 +22,7 @@ const Config = {
   ],
   axis_enabled: true,
   axis_x: ['Molecule Scale', 'Cell Scale', 'Tissue', 'Organ', 'Organism'],
-  axis_y: ['Reprogramming', 'Replace - Bio', 'Replace - Synthetic', 'Slow Damage', 'Enhance', 'Recycle', 'Prevent', 'Repair', 'Removal'],
+  axis_y: ['Reprogramming', 'Replace Bio', 'Replace Synthetic', 'Slow Damage', 'Enhance', 'Recycle', 'Prevent', 'Repair', 'Removal'],
   github_repo_owner: 'Foresight-Institute',
   github_repo_name: 'biotech-health-extension-tree',
   github_base_branch: 'staging',
