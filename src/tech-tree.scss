@@ -278,7 +278,6 @@ section {
     transition: 0.25s;
 
     &.axis-x {
-      height: 150vh;
 
       p {
         margin-top: 10px;
@@ -286,7 +285,6 @@ section {
     }
 
     &.axis-y {
-      min-width: calc(100vw + 75px);
       align-items: end;
       justify-content: flex-start;
 
