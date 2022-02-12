@@ -39,6 +39,15 @@ const Tree = () => {
     setKeyColors(colors);
   }, []);
   /**
+   * Window dimensions, update on resize
+   */
+  const [windowWidth, setWindowWidth] = useState(window.outerWidth);
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.outerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+  /**
    * Inner node page states
    */
   const [nodeInfoOpen, setNodeInfoOpen] = useState(true);
@@ -840,6 +849,7 @@ const Tree = () => {
                             backgroundColor: `rgba(255, 255, 255, ${(i + 1) * 0.03})`,
                             top: prevAxis,
                             left: 0,
+                            width: windowWidth,
                             height: bottom - (prevAxis - 37.5),
                           }}
                           key={axis}
@@ -895,6 +905,7 @@ const Tree = () => {
                             top: 0,
                             left: prevAxis,
                             width: right - (prevAxis - 37.5),
+                            height: 100000,
                           }}
                           key={axis}
                         >
