@@ -23,7 +23,7 @@ const Tree = () => {
    */
   const NodeTemplate = {
     title: 'Node',
-    type: Config.key[0].title.replace(' ', '-').toLowerCase(),
+    type: Config.key[0].title.replaceAll(' ', '-').toLowerCase(),
     highlight: 'false',
   }
   /**
@@ -34,7 +34,7 @@ const Tree = () => {
   useEffect(() => {
     let colors = {};
     Config.key.forEach((k) => {
-      colors[k.title.replace(' ', '-').toLowerCase()] = k.color;
+      colors[k.title.replaceAll(' ', '-').toLowerCase()] = k.color;
     });
     setKeyColors(colors);
   }, []);
@@ -211,7 +211,7 @@ const Tree = () => {
         title: `Tech Tree Changes from ${submitName}`,
         body: `Submitted from ${submitEmail}`,
         base: Config.github_base_branch,
-        head: `tree-change/${submitName.replace(' ', '-').toLowerCase()}-${new Date().getTime()}`,
+        head: `tree-change/${submitName.replaceAll(' ', '-').toLowerCase()}-${new Date().getTime()}`,
         changes: [
           {
             files: {
@@ -350,7 +350,7 @@ const Tree = () => {
                  * Set ID of node
                  * @type {string}
                  */
-                const id = node.title.replace(/\s/g, '-').toLowerCase();
+                const id = node.title.replaceAll(/\s/g, '-').toLowerCase();
                 /**
                  * Position multiplier based on render index
                  * @type {number}
@@ -377,7 +377,7 @@ const Tree = () => {
                     /**
                      * Find the top position of the backwards relation and match it
                      */
-                    if (n.id === node.relations[0].replace(/\s/g, '-').toLowerCase()) {
+                    if (n.id === node.relations[0].replaceAll(/\s/g, '-').toLowerCase()) {
                       t = n.top;
                       l = n.left + ((n.id.length * fontWidth) + pixelDiff);
                     } else {
@@ -396,7 +396,7 @@ const Tree = () => {
                      * Save relation starting points to draw lines later
                      */
                     node.relations.forEach((relation) => {
-                      if (n.id === relation.replace(/\s/g, '-').toLowerCase()) {
+                      if (n.id === relation.replaceAll(/\s/g, '-').toLowerCase()) {
                         startingPoints.push({
                           id: n.id,
                           top: n.top,
@@ -551,7 +551,7 @@ const Tree = () => {
                                   <select id="type" ref={editingNode === id ? typeRef : null} defaultValue={node.type}>
                                     {
                                       Config.key.map((k) =>
-                                        <option value={k.title.replace(' ', '-').toLowerCase()} key={k.title}>{k.title}</option>)
+                                        <option value={k.title.replaceAll(' ', '-').toLowerCase()} key={k.title}>{k.title}</option>)
                                     }
                                   </select>
                                   {
@@ -561,14 +561,14 @@ const Tree = () => {
                                         <select id="axis-x" ref={editingNode === id ? xAxisRef : null} defaultValue={node?.axis_x}>
                                           {
                                             Config.axis_x.map((axis) =>
-                                              <option value={axis.replace(' ', '-').toLowerCase()} key={axis}>{axis}</option>)
+                                              <option value={axis.replaceAll(' ', '-').toLowerCase()} key={axis}>{axis}</option>)
                                           }
                                         </select>
                                         <label htmlFor="axis-y">Y Axis:</label>
                                         <select id="axis-y" ref={editingNode === id ? yAxisRef : null} defaultValue={node?.axis_y}>
                                           {
                                             Config.axis_y.map((axis) =>
-                                              <option value={axis.replace(' ', '-').toLowerCase()} key={axis}>{axis}</option>)
+                                              <option value={axis.replaceAll(' ', '-').toLowerCase()} key={axis}>{axis}</option>)
                                           }
                                         </select>
                                       </>
@@ -668,7 +668,7 @@ const Tree = () => {
                                      */
                                     let newNode = NodeTemplate;
                                     newNode.title = inputRef.current?.value.trim();
-                                    newNode.type = typeRef.current?.value.replace(' ', '-').toLowerCase();
+                                    newNode.type = typeRef.current?.value.replaceAll(' ', '-').toLowerCase();
                                     newNode.highlight = highlightRef.current?.value;
                                     if (Config.axis_enabled) {
                                       newNode.axis_x = xAxisRef.current?.value;
@@ -688,7 +688,7 @@ const Tree = () => {
                                      * If cancelling new node
                                      */
                                     if (isNewNode) {
-                                      setTreeData(treeData.filter((n) => n.title.replace(/\s/g, '-').toLowerCase() !== editingNode));
+                                      setTreeData(treeData.filter((n) => n.title.replaceAll(/\s/g, '-').toLowerCase() !== editingNode));
                                     }
                                     /**
                                      * Cancel
@@ -734,7 +734,7 @@ const Tree = () => {
                                       newNode.axis_y = node.axis_y;
                                     }
                                     d.splice(treeLoc + 1, 0, newNode);
-                                    setEditingNode(newNode.title.replace(/\s/g, '-').toLowerCase());
+                                    setEditingNode(newNode.title.replaceAll(/\s/g, '-').toLowerCase());
                                     setTreeData(d);
                                   }} />
                                   {
@@ -773,7 +773,7 @@ const Tree = () => {
                                         newNode.type = NodeTemplate.type;
                                         newNode.relations = [];
                                         d.splice(treeLoc + 1, 0, newNode);
-                                        setEditingNode(newNode.title.replace(/\s/g, '-').toLowerCase());
+                                        setEditingNode(newNode.title.replaceAll(/\s/g, '-').toLowerCase());
                                         setTreeData(d);
                                       }} />
                                     ) : null
@@ -811,7 +811,7 @@ const Tree = () => {
                        */
                       let lastNode = null;
                       treeData.forEach((node) => {
-                        if (node?.axis_y === axis.replace(/\s/g, '-').toLowerCase()) lastNode = node;
+                        if (node?.axis_y === axis.replaceAll(/\s/g, '-').toLowerCase()) lastNode = node;
                       })
                       let bottom = 0;
                       let left = 0;
@@ -821,7 +821,7 @@ const Tree = () => {
                          * Set the bottom point of this axis block
                          */
                         locRef.forEach((loc) => {
-                          if (loc.axis_y === axis.replace(/\s/g, '-').toLowerCase()) {
+                          if (loc.axis_y === axis.replaceAll(/\s/g, '-').toLowerCase()) {
                             if (loc.left > left) left = loc.left + ((loc.id.length * fontWidth) + pixelDiff);
                             if ((loc.top + nodeHeight) > bottom) {
                               bottom = loc.top + nodeHeight;
@@ -866,7 +866,7 @@ const Tree = () => {
                        */
                       let lastNode = null;
                       treeData.forEach((node) => {
-                        if (node?.axis_x === axis.replace(/\s/g, '-').toLowerCase()) lastNode = node;
+                        if (node?.axis_x === axis.replaceAll(/\s/g, '-').toLowerCase()) lastNode = node;
                       })
                       let right = 0;
                       let top = 0;
@@ -876,7 +876,7 @@ const Tree = () => {
                          * Set the bottom point of this axis block
                          */
                         locRef.forEach((loc) => {
-                          if (loc.axis_x === axis.replace(/\s/g, '-').toLowerCase()) {
+                          if (loc.axis_x === axis.replaceAll(/\s/g, '-').toLowerCase()) {
                             if (loc.top > top) top = loc.top;
                             if (loc.left + ((loc.id.length * fontWidth) + pixelDiff) > right) {
                               right = loc.left + ((loc.id.length * fontWidth) + pixelDiff);
