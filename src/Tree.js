@@ -363,6 +363,22 @@ const Tree = () => {
                 let t = pixelDiff * multiplier;
                 let l = pixelDiff * multiplier;
                 /**
+                 * Reposition node if any horizontal overlapping occurs
+                 * @param nodeLeft - current node being built
+                 * @param refLeft - node to check against from locRef
+                 */
+                const overlapChecker = (nodeLeft, ref, nodeTop) => {
+                  const refSize = (ref.id.length * fontWidth);
+                  if (nodeLeft >= ref.left && nodeLeft <= (ref.left + refSize) && nodeTop === (ref.top - pixelDiff)) {
+                    /**
+                     * An overlap occurred, reposition node
+                     */
+                    return nodeLeft + refSize + pixelDiff;
+                  } else {
+                    return false;
+                  }
+                }
+                /**
                  * Check if node has any backwards relations
                  */
                 const startingPoints = [];
@@ -382,7 +398,7 @@ const Tree = () => {
                       l = n.left + ((n.id.length * fontWidth) + pixelDiff);
                     } else {
                       /**
-                       * Check if a node is already in this position
+                       * Check if a node is already win this position
                        */
                       if (n.top === t) {
                         t = t + pixelDiff;
@@ -392,6 +408,10 @@ const Tree = () => {
                         }
                       }
                     }
+                    /**
+                     * Check for horizontal overlaps
+                     */
+                    while (overlapChecker(l, n, t)) l = overlapChecker(l, n, t);
                     /**
                      * Save relation starting points to draw lines later
                      */
