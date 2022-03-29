@@ -137,6 +137,14 @@ const Data = [
       "Leech Warhead",
       "EMP Warhead"
     ]
+  },
+  {
+    "title": "Test",
+    "type": "example-one",
+    "highlight": "false",
+    "relations": [
+      "Battle Shields"
+    ]
   }
 ];
 
